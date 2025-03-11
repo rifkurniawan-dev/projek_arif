@@ -2037,6 +2037,7 @@
         "plt.show()"
     ]
 },
+{
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
@@ -2044,7 +2045,9 @@
         },
         "id": "6bPJA8oCPwpw",
         "outputId": "eda13e24-f316-4b14-8a66-4a3da243ba23"
-      },
+      }
+},
+{
       "execution_count": 76,
       "outputs": [
         {

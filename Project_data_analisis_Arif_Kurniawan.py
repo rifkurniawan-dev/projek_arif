@@ -46,7 +46,7 @@ import streamlit.components.v1 as stc
     }
   ]
 },
-    {
+{
       "cell_type": "code",
       "source": [
         "import pandas as pd\n",
@@ -60,7 +60,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "## **Gathering**"
@@ -69,14 +69,14 @@ import streamlit.components.v1 as stc
         "id": "lU7w9aF-nN8l"
       }
     },
-    {
+{
       "cell_type": "markdown",
       "source": [],
       "metadata": {
         "id": "19tpLMNqodb5"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "#memuat data\n",

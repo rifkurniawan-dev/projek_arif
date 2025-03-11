@@ -1,10 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as stc
 from PIL import Image
-
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-
 {
   "cells": [
     {

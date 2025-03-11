@@ -2151,10 +2151,10 @@
           "height": 564
         },
         {
-        "collapsed": true,
-        "id": "6L4-Z0OIyQVN",
-        "outputId": "d504901f-2301-4257-f312-701e3fb9065d"
-      },
+    "collapsed": True,
+    "id": "6L4-Z0OIyQVN",
+    "outputId": "d504901f-2301-4257-f312-701e3fb9065d"
+},
       "execution_count": 79,
       "outputs": [
         {

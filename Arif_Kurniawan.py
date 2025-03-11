@@ -2274,6 +2274,7 @@
         "fig.update_layout(height=500, width=1000, title_text='Analisis Pengaruh Musim & Cuaca Terhadap Penyewaan Sepeda')\n",
         "fig.show()"
       ],
+  {
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
@@ -2282,7 +2283,6 @@
         "id": "PwfOECCYcU_p",
         "outputId": "c7a9b434-042a-4b05-f433-5ff09b53dadb"
       },
-{
       "execution_count": 86,
       "outputs": [
         {

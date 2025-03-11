@@ -479,7 +479,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "#memuat data\n",
@@ -879,7 +879,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Assessing **Data**"
@@ -888,7 +888,7 @@ import streamlit.components.v1 as stc
         "id": "UfEIxkRJtAU-"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.info()"
@@ -933,7 +933,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.isna().sum()"
@@ -1067,7 +1067,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.info()"
@@ -1113,7 +1113,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.isna().sum()"
@@ -1252,7 +1252,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.describe()"
@@ -1707,7 +1707,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.describe()"
@@ -2181,7 +2181,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Cleaning **data**\n"
@@ -2190,7 +2190,7 @@ import streamlit.components.v1 as stc
         "id": "DPhVtPBhvb6D"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.drop_duplicates(inplace=True)"
@@ -2201,7 +2201,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"Jumlah duplikasi: \", day_df.duplicated().sum())\n"
@@ -2224,7 +2224,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.drop_duplicates(inplace=True)"
@@ -2235,7 +2235,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"Jumlah duplikasi: \", hour_df.duplicated().sum())\n"
@@ -2258,7 +2258,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Exploratory Data Analysis (EDA)"
@@ -2267,7 +2267,7 @@ import streamlit.components.v1 as stc
         "id": "0abjwDz_vpEY"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Menyaring kolom yang diperlukan dari day.csv dan hour.csv\n",
@@ -2281,7 +2281,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "\n",
@@ -2295,7 +2295,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Menggabungkan data day.csv dan hour.csv berdasarkan 'instant'\n",
@@ -2309,7 +2309,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "df_combined['cnt'] = df_combined['cnt_day'] + df_combined['cnt_hour']\n",
@@ -2337,7 +2337,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Statistik deskriptif pada kolom 'cnt' yang menunjukkan jumlah penyewaan sepeda\n",
@@ -2370,7 +2370,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "df_combined['season'] = df_combined['season_day'] + df_combined['season_hour']\n",
@@ -2398,7 +2398,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "season_stats = df_combined.groupby('season')['cnt'].describe()"
@@ -2409,7 +2409,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "df_combined['weathersit'] = df_combined['weathersit_day'] + df_combined['weathersit_hour']\n",
@@ -2422,7 +2422,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "weathersit_stats = df_combined.groupby('weathersit')['cnt'].describe()"
@@ -2433,7 +2433,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Visualization & Explanatory Analysis"
@@ -2442,7 +2442,7 @@ import streamlit.components.v1 as stc
         "id": "b2HoKbQo3JT8"
       }
     },
-    {
+{
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
@@ -2454,7 +2454,7 @@ import streamlit.components.v1 as stc
         "season_avg = df_combined.groupby('season')['cnt'].mean()"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi pengaruh musim terhadap jumlah penyewaan sepeda\n",
@@ -2489,7 +2489,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-   {
+{
     "cell_type": "code",
     "source": [
         "weather_avg" : "df_combined.groupby('weathersit')['cnt'].mean()"
@@ -2502,7 +2502,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi pengaruh cuaca terhadap jumlah penyewaan sepeda\n",
@@ -2536,7 +2536,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "\n",
@@ -2564,7 +2564,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(hour_df.columns)"
@@ -2590,14 +2590,14 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "2fhs6GZ4qFMx"
       },
       "source": []
     },
-    {
+{
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
@@ -2609,7 +2609,7 @@ import streamlit.components.v1 as stc
         "hour_df_filtered = hour_df[['instant', 'hr', 'season', 'weathersit', 'temp', 'atemp', 'hum', 'windspeed', 'casual', 'registered', 'cnt', 'mnth', 'season']]"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Menggabungkan data day.csv dengan hour.csv berdasarkan 'instant'\n",
@@ -2638,7 +2638,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Korelasi antar kolom numerik yang ada dalam dataset gabungan\n",
@@ -2652,7 +2652,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi korelasi menggunakan heatmap\n",
@@ -2683,7 +2683,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Mengelompokkan data berdasarkan jam ('hr') untuk melihat pola penyewaan sepeda per jam\n",
@@ -2696,7 +2696,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi penyewaan sepeda per jam\n",
@@ -2731,7 +2731,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# mengelompokan dan melihat pola penyewaan sepeda per bulan\n",
@@ -2743,7 +2743,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi penyewaan sepeda per bulan\n",
@@ -2778,7 +2778,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Pengembangan Dashboard"
@@ -2787,7 +2787,7 @@ import streamlit.components.v1 as stc
         "id": "WxP52QMTUI0L"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "import plotly.express as px"
@@ -2798,7 +2798,7 @@ import streamlit.components.v1 as stc
       "execution_count": null,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi interaktif untuk pengaruh musim terhadap penyewaan sepeda\n",
@@ -2859,7 +2859,7 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Visualisasi interaktif untuk pengaruh cuaca terhadap penyewaan sepeda\n",

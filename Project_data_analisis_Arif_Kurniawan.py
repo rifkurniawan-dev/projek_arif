@@ -2921,7 +2921,7 @@ import streamlit.components.v1 as stc
         }
       ]
     }
-  ],
+  },
   "metadata": {
     "colab": {
       "provenance": [],

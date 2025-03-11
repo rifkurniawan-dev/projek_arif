@@ -2492,7 +2492,7 @@ import streamlit.components.v1 as stc
 {
     "cell_type": "code",
     "source": [
-        "weather_avg" : "df_combined.groupby('weathersit')['cnt'].mean()"
+        "weather_avg = df_combined.groupby('weathersit')['cnt'].mean()"
     ]
 },
 

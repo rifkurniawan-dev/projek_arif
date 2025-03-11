@@ -2027,7 +2027,6 @@
         "id": "0abjwDz_vpEY"
       }
     },
-    {
       "cell_type": "code",
       "source": [
         "# Korelasi Data Numerik\n",

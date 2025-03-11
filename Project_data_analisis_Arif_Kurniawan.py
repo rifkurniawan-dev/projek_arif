@@ -14,7 +14,8 @@ import streamlit.components.v1 as stc
     }
   ]
 },
-
+   {
+  "cells": [
     {
       "cell_type": "markdown",
       "source": [
@@ -42,7 +43,9 @@ import streamlit.components.v1 as stc
       "metadata": {
         "id": "Ir0wDWvSqVJO"
       }
-    },
+    }
+  ]
+},
     {
       "cell_type": "code",
       "source": [

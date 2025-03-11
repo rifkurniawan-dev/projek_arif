@@ -2144,7 +2144,8 @@
         "plt.xlabel('Cuaca (1: Clear, 2: Mist, 3: Light Rain/Snow, 4: Heavy Rain/Snow)')\n",
         "plt.ylabel('Jumlah Penyewaan Sepeda')\n",
         "plt.show()"
-      ],
+      ]
+},
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",

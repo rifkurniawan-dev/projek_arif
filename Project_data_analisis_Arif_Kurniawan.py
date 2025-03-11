@@ -2483,11 +2483,13 @@ import streamlit.components.v1 as stc
         }
       ]
     },
-    {
-      "cell_type": "code",
-      "source": [
+   {
+    "cell_type": "code",
+    "source": [
         "weather_avg = df_combined.groupby('weathersit')['cnt'].mean()"
-      ],
+    ]
+},
+
       "metadata": {
         "id": "GO7N_K4BNp_s"
       },

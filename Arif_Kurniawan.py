@@ -2174,7 +2174,7 @@
         }
     ]
 },
-  {
+{
       "cell_type": "code",
       "source": [
         "import plotly.express as px\n",
@@ -2187,7 +2187,7 @@
       "execution_count": 82,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Pengaruh Musim & Cuaca Terhadap Penyewaan Sepeda\n",
@@ -2202,7 +2202,7 @@
       "execution_count": 83,
       "outputs": []
     },
-  {
+{
       "cell_type": "code",
       "source": [
         "# Pengaruh Musim\n",
@@ -2268,7 +2268,7 @@
         }
       ]
     },
-  {
+{
       "cell_type": "code",
       "source": [
         "fig.update_layout(height=500, width=1000, title_text='Analisis Pengaruh Musim & Cuaca Terhadap Penyewaan Sepeda')\n",

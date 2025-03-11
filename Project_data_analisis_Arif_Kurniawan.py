@@ -11,8 +11,10 @@ import streamlit.components.v1 as stc
       "source": [
         "<a href=\"https://colab.research.google.com/github/rifkurniawan-dev/projek_arif/blob/main/Project_data_analisis_Arif_Kurniawan.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
-      ]
-    },
+    }
+  ]
+},
+
     {
       "cell_type": "markdown",
       "source": [

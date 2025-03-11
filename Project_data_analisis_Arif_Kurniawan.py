@@ -2817,12 +2817,12 @@ import streamlit.components.v1 as stc
         "outputId": "68909b06-5e79-4827-d7f7-9eb375e6cd3c"
       },
   {
-      "execution_count": null,
-      "outputs": [
+    "execution_count": null,
+    "outputs": [
         {
-          "output_type": "display_data",
-          "data": {
-            "text/html": [
+            "output_type": "display_data",
+            "data": {
+                "text/html": [
               "<html>\n",
               "<head><meta charset=\"utf-8\" /></head>\n",
               "<body>\n",

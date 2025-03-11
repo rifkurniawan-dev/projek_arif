@@ -2150,7 +2150,8 @@
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 564
-        },
+        }
+      },
     {
     "collapsed": True,
     "id": "6L4-Z0OIyQVN",

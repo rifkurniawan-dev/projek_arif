@@ -14,7 +14,7 @@ import streamlit.components.v1 as stc
     }
   ]
 },
-   {
+{
   "cells": [
     {
       "cell_type": "markdown",

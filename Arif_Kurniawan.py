@@ -2027,14 +2027,16 @@
         "id": "0abjwDz_vpEY"
       }
     },
-      "cell_type": "code",
-      "source": [
+      {
+    "cell_type": "code",
+    "source": [
         "# Korelasi Data Numerik\n",
         "plt.figure(figsize=(20, 12))\n",
         "sns.heatmap(day_df.corr(), annot=True, cmap='coolwarm')\n",
         "plt.title('Matriks Korelasi Dataset Day')\n",
         "plt.show()"
-      ],
+    ]
+},
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",

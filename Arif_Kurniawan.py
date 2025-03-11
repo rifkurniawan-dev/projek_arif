@@ -26,7 +26,7 @@
         "id": "poAcHSN6om--"
       }
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# **Pertanyaan**\n",
@@ -40,7 +40,7 @@
         "id": "Ir0wDWvSqVJO"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "import streamlit as st\n",
@@ -56,7 +56,7 @@
       "execution_count": 58,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "from sklearn.model_selection import train_test_split\n",
@@ -69,7 +69,7 @@
       "execution_count": 59,
       "outputs": []
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "## **Gathering**"
@@ -78,7 +78,7 @@
         "id": "lU7w9aF-nN8l"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "#memuat data\n",
@@ -481,7 +481,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "#memuat data\n",
@@ -881,7 +881,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Assessing **Data**"
@@ -890,7 +890,7 @@
         "id": "UfEIxkRJtAU-"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.info()"
@@ -935,7 +935,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.info()"
@@ -981,7 +981,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.describe()"
@@ -1436,7 +1436,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.describe()"
@@ -1910,7 +1910,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Mengecek nilai yang hilang\n",
@@ -1951,7 +1951,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"\\nMissing Values Hour Dataset:\\n\", hour_df.isnull().sum())\n"
@@ -1993,7 +1993,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "\n",
@@ -2007,7 +2007,7 @@
       "execution_count": 73,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df['dteday'] = pd.to_datetime(hour_df['dteday'])"
@@ -2018,7 +2018,7 @@
       "execution_count": 74,
       "outputs": []
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Exploratory Data Analysis (EDA)"
@@ -2058,7 +2058,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "plt.figure(figsize=(20, 12))\n",
@@ -2088,7 +2088,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Visualization & Explanatory Analysis"
@@ -2097,7 +2097,7 @@
         "id": "b2HoKbQo3JT8"
       }
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 78,
       "metadata": {
@@ -2130,7 +2130,7 @@
         "plt.show()"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "# Pengaruh Cuaca Terhadap Penyewaan Sepeda\n",
@@ -2165,7 +2165,7 @@
         }
       ]
     },
-    {
+  {
       "cell_type": "code",
       "source": [
         "import plotly.express as px\n",
@@ -2193,7 +2193,7 @@
       "execution_count": 83,
       "outputs": []
     },
-    {
+  {
       "cell_type": "code",
       "source": [
         "# Pengaruh Musim\n",
@@ -2259,7 +2259,7 @@
         }
       ]
     },
-    {
+  {
       "cell_type": "code",
       "source": [
         "fig.update_layout(height=500, width=1000, title_text='Analisis Pengaruh Musim & Cuaca Terhadap Penyewaan Sepeda')\n",

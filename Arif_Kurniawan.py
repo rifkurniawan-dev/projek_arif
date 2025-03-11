@@ -41,10 +41,12 @@
     {
       "cell_type": "code",
       "source": [
+        "import streamlit as st\n",
         "import pandas as pd\n",
         "import numpy as np\n",
         "import matplotlib.pyplot as plt\n",
         "import seaborn as sns\n"
+        
       ],
       "metadata": {
         "id": "3XJf60xunKsL"

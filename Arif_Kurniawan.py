@@ -1,8 +1,5 @@
-import streamlit as st
-import streamlit.components.v1 as stc
-from PIL import Image
 
-import pandas as pd
+
 
 {
   "cells": [
@@ -50,6 +47,7 @@ import pandas as pd
       "cell_type": "code",
       "source": [
         "import streamlit as st\n",
+        "import streamlit.components.v1 as stc\n",
         "import pandas as pd\n",
         "import numpy as np\n",
         "import matplotlib.pyplot as plt\n",

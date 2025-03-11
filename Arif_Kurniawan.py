@@ -1,6 +1,10 @@
 import streamlit as st
 import streamlit.components.v1 as stc
 from PIL import Image
+
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity,linear_kernel
 {
   "cells": [
     {

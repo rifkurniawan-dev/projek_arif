@@ -12,7 +12,7 @@
     }
   ]
 },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "# Proyek Analisis Data: E-Commerce public dataset\n",

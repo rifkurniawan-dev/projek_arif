@@ -2425,7 +2425,8 @@
           "height": 631
         },
         "outputId": "e31911d0-2d57-49ff-d8b6-d23091c16934"
-      },
+      }
+    },
       "outputs": [
         {
           "output_type": "display_data",

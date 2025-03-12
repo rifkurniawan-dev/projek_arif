@@ -3,8 +3,3 @@ streamlit==1.25.0
 pandas==2.2.2
 seaborn==0.12.2
 matplotlib==3.10.0
-pyplot
-
-
-
-

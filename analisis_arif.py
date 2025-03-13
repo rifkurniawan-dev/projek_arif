@@ -2339,7 +2339,7 @@ metadata = {
           "base_uri": "https://localhost:8080/",
           "height": 0
         },
-        "collapsed": true,
+        "collapsed": "code",
         "outputId": "c4dfa1e9-2bf6-415d-ebf7-9155cf104df3"
       },
       "outputs": [

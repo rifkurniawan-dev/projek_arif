@@ -7734,8 +7734,7 @@ metadata = {
         "plt.yticks(fontsize=10)\n",
         "plt.show()"
       ]
-    }
-},
+    },
 "metadata": {
     "kernelspec": {
       "display_name": "Python 3",

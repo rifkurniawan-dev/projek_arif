@@ -7751,12 +7751,11 @@ metadata = {
         "hash": "972b3bf27e332e87b5379f2791f6ef9dfc79c71018c370b0d7423235e20fe4d7"
       }
     },
-  {
+  
     "colab": {
       "provenance": [],
       "include_colab_link": true
-    }
-  },
+    },
   "nbformat": 4,
   "nbformat_minor": 0
-    }
+  }

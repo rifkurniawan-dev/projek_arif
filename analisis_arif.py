@@ -24,7 +24,7 @@
         "- **ID Dicoding:** MC299D5Y1908"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "eE0raob58DC0"
@@ -33,7 +33,7 @@
         "## Pertanyaan"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "GmQeQ5YF8DC0"
@@ -43,7 +43,7 @@
         "-bagaimana pengaruh cuaca terhadap jumlah penyewaan sepeda"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "H-z4QGlO8DC1"
@@ -52,7 +52,7 @@
         "## Import Semua Packages/Library yang Digunakan"
       ]
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 94,
       "metadata": {
@@ -66,7 +66,7 @@
         "import seaborn as sns\n"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "h_Sh51Xy8DC1"
@@ -75,7 +75,7 @@
         "## Data Wrangling"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "sXU2GBYu8DC1"
@@ -84,7 +84,7 @@
         "### Gathering Data"
       ]
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 95,
       "metadata": {
@@ -484,7 +484,7 @@
         "day_df.head()"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df = pd.read_csv(\"hour.csv\")\n",
@@ -883,7 +883,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "FHSiqaZp8DC1"
@@ -892,7 +892,7 @@
         "### Assessing Data"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "Menilai day"
@@ -901,11 +901,12 @@
         "id": "X_sz8Qg6TlgY"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.info()"
-      ],
+      ]
+},
       "metadata": {
         "id": "ax-3tEjc9Cj1",
         "colab": {
@@ -948,7 +949,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.isna().sum()"
@@ -1083,7 +1084,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"Jumlah duplikasi: \", day_df.duplicated().sum())"
@@ -1106,7 +1107,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.describe()"
@@ -1561,7 +1562,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "Menilai Hour"
@@ -1570,7 +1571,7 @@
         "id": "WPTqH1tlTva0"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.info()"
@@ -1616,7 +1617,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.isna().sum()"
@@ -1755,7 +1756,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"Jumlah duplikasi: \", hour_df.duplicated().sum())"
@@ -1778,7 +1779,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.describe()"
@@ -2252,7 +2253,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "EhN5R4hr8DC1"
@@ -2261,7 +2262,7 @@
         "### Cleaning Data"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "Duplikat day"
@@ -2270,7 +2271,7 @@
         "id": "vOBhHoNfmgTp"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.duplicated().sum()\n",
@@ -2297,7 +2298,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.drop_duplicates(inplace=True)\n"
@@ -2308,7 +2309,7 @@
       "execution_count": 106,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"Jumlah duplikasi: \", day_df.duplicated().sum())"
@@ -2331,7 +2332,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "Duplikat Hour"
@@ -2340,7 +2341,7 @@
         "id": "Q_5ejIqckiSP"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.duplicated().sum()"
@@ -2366,7 +2367,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.drop_duplicates(inplace=True)"
@@ -2377,7 +2378,7 @@
       "execution_count": 110,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print(\"jumlah duplikasi: \", hour_df.duplicated().sum())"
@@ -2400,7 +2401,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "gp-Y6wU38DC1"
@@ -2409,7 +2410,7 @@
         "## Exploratory Data Analysis (EDA)"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "MW7WF2kr8DC1"
@@ -2418,7 +2419,7 @@
         "### Explore ..."
       ]
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 112,
       "metadata": {
@@ -2817,7 +2818,7 @@
         "day_df.sample(5)"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.describe(include=\"all\")"
@@ -3361,7 +3362,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "day_df.instant.is_unique"
@@ -3387,7 +3388,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "season_stats = day_df.groupby(by='season').agg({\n",
@@ -3404,7 +3405,7 @@
       "execution_count": 115,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "print('\\nStatistik Deskriptif Berdasarkan Season:')\n",
@@ -3453,7 +3454,7 @@
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "#Jumlah Unik 'instant' Berdasarkan 'mnth'\n",

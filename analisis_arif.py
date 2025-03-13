@@ -951,141 +951,50 @@ metadata = {
         }
       ]
     },
-{
-      "cell_type": "code",
-      "source": [
+"data" = {
+    "cell_type": "code",
+    "source": [
         "day_df.isna().sum()"
-      ],
-      "metadata": {
+    ],
+    "metadata": {
         "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 586
+            "base_uri": "https://localhost:8080/",
+            "height": 586
         },
-        "collapsed": true,
+        "collapsed": True,  # Perbaikan dari 'true' menjadi 'True'
         "id": "FrIIeRENTJlO",
         "outputId": "3aeb9bf0-432f-4239-e421-af0901a70e4c"
-      },
-      "execution_count": 98,
-      "outputs": [
-        {
-          "output_type": "execute_result",
-          "data": {
-            "text/plain": [
-              "instant       0\n",
-              "dteday        0\n",
-              "season        0\n",
-              "yr            0\n",
-              "mnth          0\n",
-              "holiday       0\n",
-              "weekday       0\n",
-              "workingday    0\n",
-              "weathersit    0\n",
-              "temp          0\n",
-              "atemp         0\n",
-              "hum           0\n",
-              "windspeed     0\n",
-              "casual        0\n",
-              "registered    0\n",
-              "cnt           0\n",
-              "dtype: int64"
-            ],
-            "text/html": [
-              "<div>\n",
-              "<style scoped>\n",
-              "    .dataframe tbody tr th:only-of-type {\n",
-              "        vertical-align: middle;\n",
-              "    }\n",
-              "\n",
-              "    .dataframe tbody tr th {\n",
-              "        vertical-align: top;\n",
-              "    }\n",
-              "\n",
-              "    .dataframe thead th {\n",
-              "        text-align: right;\n",
-              "    }\n",
-              "</style>\n",
-              "<table border=\"1\" class=\"dataframe\">\n",
-              "  <thead>\n",
-              "    <tr style=\"text-align: right;\">\n",
-              "      <th></th>\n",
-              "      <th>0</th>\n",
-              "    </tr>\n",
-              "  </thead>\n",
-              "  <tbody>\n",
-              "    <tr>\n",
-              "      <th>instant</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>dteday</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>season</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>yr</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>mnth</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>holiday</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>weekday</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>workingday</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>weathersit</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>temp</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>atemp</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>hum</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>windspeed</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>casual</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>registered</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>cnt</th>\n",
-              "      <td>0</td>\n",
-              "    </tr>\n",
-              "  </tbody>\n",
-              "</table>\n",
-              "</div><br><label><b>dtype:</b> int64</label>"
-            ]
-          },
-          "metadata": {},
-          "execution_count": 98
-        }
-      ]
     },
+    "execution_count": 98,
+    "outputs": [
+        {
+            "output_type": "execute_result",
+            "data": {
+                "text/plain": [
+                    "instant       0\n",
+                    "dteday        0\n",
+                    "season        0\n",
+                    "yr            0\n",
+                    "mnth          0\n",
+                    "holiday       0\n",
+                    "weekday       0\n",
+                    "workingday    0\n",
+                    "weathersit    0\n",
+                    "temp          0\n",
+                    "atemp         0\n",
+                    "hum           0\n",
+                    "windspeed     0\n",
+                    "casual        0\n",
+                    "registered    0\n",
+                    "cnt           0\n",
+                    "dtype: int64"
+                ]
+            },
+            "metadata": {},
+            "execution_count": 98
+        }
+    ]
+},
 {
       "cell_type": "code",
       "source": [

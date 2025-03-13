@@ -3575,7 +3575,7 @@ metadata = {
         }
       ]
     },
-    {
+   {
     "cell_type": "code",
     "source": [
         "# Jumlah Unik 'instant' Berdasarkan 'weathersit'\n",
@@ -3647,13 +3647,10 @@ metadata = {
                 ]
             }
         }
-    ]
+    ],
+    "metadata": {},
+    "execution_count": 118
 },
-          "metadata": {},
-          "execution_count": 118
-        }
-      ]
-    },
     {
       "cell_type": "code",
       "source": [

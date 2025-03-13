@@ -907,15 +907,14 @@
         "day_df.info()"
       ]
 },
-"metadata": {
+metadata = {
     "id": "ax-3tEjc9Cj1",
     "colab": {
         "base_uri": "https://localhost:8080/"
     },
-    "collapsed": true,
+    "collapsed": True,
     "outputId": "2552a591-9de7-49ab-df51-da5d1db244bb"
-},
-
+}
       "execution_count": 97,
       "outputs": [
         {

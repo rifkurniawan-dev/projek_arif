@@ -907,7 +907,7 @@
         "day_df.info()"
       ]
 },
-       "metadata": {
+"metadata": {
         "id": "ax-3tEjc9Cj1",
         "colab": {
           "base_uri": "https://localhost:8080/"

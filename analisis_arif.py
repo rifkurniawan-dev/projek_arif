@@ -7734,7 +7734,6 @@ metadata = {
         "plt.yticks(fontsize=10)\n",
         "plt.show()"
       ]
-    }
     },
   "metadata": {
     "kernelspec": {

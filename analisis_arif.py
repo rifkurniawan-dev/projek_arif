@@ -64,6 +64,8 @@
         "import pandas as pd\n",
         "import matplotlib.pyplot as plt\n",
         "import seaborn as sns\n"
+        "import streamlit as st\n"
+        
       ]
     },
 {

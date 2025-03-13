@@ -3575,6 +3575,7 @@ metadata = {
         }
       ]
     },
+    {
     "cell_type": "code",
     "source": [
         "# Jumlah Unik 'instant' Berdasarkan 'weathersit'\n",
@@ -3589,63 +3590,65 @@ metadata = {
         "id": "HJxx5fc2yvP6",
         "outputId": "f498e840-454c-40fa-e4e5-47bdbbcfe103"
     },
-
-      "execution_count": 118,
-      "outputs": [
+    "execution_count": 118,
+    "outputs": [
         {
-          "output_type": "execute_result",
-          "data": {
-            "text/plain": [
-              "weathersit\n",
-              "1    463\n",
-              "2    247\n",
-              "3     21\n",
-              "Name: instant, dtype: int64"
-            ],
-            "text/html": [
-              "<div>\n",
-              "<style scoped>\n",
-              "    .dataframe tbody tr th:only-of-type {\n",
-              "        vertical-align: middle;\n",
-              "    }\n",
-              "\n",
-              "    .dataframe tbody tr th {\n",
-              "        vertical-align: top;\n",
-              "    }\n",
-              "\n",
-              "    .dataframe thead th {\n",
-              "        text-align: right;\n",
-              "    }\n",
-              "</style>\n",
-              "<table border=\"1\" class=\"dataframe\">\n",
-              "  <thead>\n",
-              "    <tr style=\"text-align: right;\">\n",
-              "      <th></th>\n",
-              "      <th>instant</th>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>weathersit</th>\n",
-              "      <th></th>\n",
-              "    </tr>\n",
-              "  </thead>\n",
-              "  <tbody>\n",
-              "    <tr>\n",
-              "      <th>1</th>\n",
-              "      <td>463</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>2</th>\n",
-              "      <td>247</td>\n",
-              "    </tr>\n",
-              "    <tr>\n",
-              "      <th>3</th>\n",
-              "      <td>21</td>\n",
-              "    </tr>\n",
-              "  </tbody>\n",
-              "</table>\n",
-              "</div><br><label><b>dtype:</b> int64</label>"
-            ]
-          },
+            "output_type": "execute_result",
+            "data": {
+                "text/plain": [
+                    "weathersit\n",
+                    "1    463\n",
+                    "2    247\n",
+                    "3     21\n",
+                    "Name: instant, dtype: int64"
+                ],
+                "text/html": [
+                    "<div>\n",
+                    "<style scoped>\n",
+                    "    .dataframe tbody tr th:only-of-type {\n",
+                    "        vertical-align: middle;\n",
+                    "    }\n",
+                    "\n",
+                    "    .dataframe tbody tr th {\n",
+                    "        vertical-align: top;\n",
+                    "    }\n",
+                    "\n",
+                    "    .dataframe thead th {\n",
+                    "        text-align: right;\n",
+                    "    }\n",
+                    "</style>\n",
+                    "<table border=\"1\" class=\"dataframe\">\n",
+                    "  <thead>\n",
+                    "    <tr style=\"text-align: right;\">\n",
+                    "      <th></th>\n",
+                    "      <th>instant</th>\n",
+                    "    </tr>\n",
+                    "    <tr>\n",
+                    "      <th>weathersit</th>\n",
+                    "      <th></th>\n",
+                    "    </tr>\n",
+                    "  </thead>\n",
+                    "  <tbody>\n",
+                    "    <tr>\n",
+                    "      <th>1</th>\n",
+                    "      <td>463</td>\n",
+                    "    </tr>\n",
+                    "    <tr>\n",
+                    "      <th>2</th>\n",
+                    "      <td>247</td>\n",
+                    "    </tr>\n",
+                    "    <tr>\n",
+                    "      <th>3</th>\n",
+                    "      <td>21</td>\n",
+                    "    </tr>\n",
+                    "  </tbody>\n",
+                    "</table>\n",
+                    "</div><br><label><b>dtype:</b> int64</label>"
+                ]
+            }
+        }
+    ]
+},
           "metadata": {},
           "execution_count": 118
         }

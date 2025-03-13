@@ -4611,10 +4611,10 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
-        "hour_df.head()"
+        "hour_df.head(5)"
       ],
       "metadata": {
         "colab": {
@@ -5009,7 +5009,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.groupby(by=\"instant\")['cnt'].sum()"
@@ -5124,7 +5124,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "## Explore day_df & hour_df"
@@ -5133,7 +5133,7 @@ metadata = {
         "id": "th_Lzl2Fkj9O"
       }
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_day_df = pd.merge(\n",
@@ -5143,7 +5143,7 @@ metadata = {
         "    left_on=\"season\",\n",
         "    right_on=\"season\"\n",
         ")\n",
-        "hour_day_df.head()"
+        "hour_day_df.head(5)"
       ],
       "metadata": {
         "colab": {
@@ -5571,7 +5571,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_day_df.groupby(by=\"temp_y\").agg({\n",
@@ -5933,7 +5933,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_day_df.groupby(by=\"weathersit_x\").agg({\n",
@@ -6243,7 +6243,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "source": [
         "Menghubungkan semua"
@@ -6252,7 +6252,7 @@ metadata = {
         "id": "IwUGucV2Ayte"
       }
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "zsyZjqak8DC2"
@@ -6261,7 +6261,7 @@ metadata = {
         "## Visualization & Explanatory Analysis"
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "HZxOiQ6n8DC2"
@@ -6270,7 +6270,7 @@ metadata = {
         "Bagaimana pengaruh musim terhadap jumlah penyewaan sepeda"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_day_df.sample(5)"
@@ -6707,10 +6707,10 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
-        "hour_df.head()"
+        "hour_df.head(5)"
       ],
       "metadata": {
         "colab": {
@@ -7105,7 +7105,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_day_df['dteday_x'] = pd.to_datetime(hour_day_df['dteday_x'])\n"
@@ -7621,7 +7621,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 132,
       "metadata": {
@@ -7692,7 +7692,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "markdown",
       "metadata": {
         "id": "DgHI7CiU8DC2"
@@ -7701,7 +7701,7 @@ metadata = {
         "bagaimana pengaruh cuaca terhadap jumlah penyewaan sepeda"
       ]
     },
-    {
+{
       "cell_type": "code",
       "execution_count": 135,
       "metadata": {

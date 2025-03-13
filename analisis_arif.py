@@ -3580,7 +3580,8 @@ metadata = {
       "source": [
         "# Jumlah Unik 'instant' Berdasarkan 'weathersit'\n",
         "day_df.groupby(by='weathersit').instant.nunique().sort_values(ascending=False)"
-      ],
+      ]
+    },
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",

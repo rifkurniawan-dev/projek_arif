@@ -7659,7 +7659,7 @@ metadata = {
         "plt.show()"
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "plt.figure(figsize=(10,6))\n",

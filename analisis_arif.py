@@ -4056,7 +4056,7 @@ metadata = {
         }
       ]
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "hour_df.describe(5)"

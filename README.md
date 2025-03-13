@@ -1,16 +1,13 @@
-# Lingkungan Pengaturan - Shell/Terminal
-
-mkdir analisis_data_Arif
-
-cd analisis_data_Arif
-
+## Setup Environment - Shell/Terminal
+```
+mkdir Analisis_Data_Arif
+cd Analisis_Data_Arif
 pipenv install
-
 pipenv shell
-
 pip install -r requirements.txt
+```
 
-#Jalankan aplikasi steamlit
-
-
+## Run steamlit app
+```
 streamlit run dashboard.py
+```

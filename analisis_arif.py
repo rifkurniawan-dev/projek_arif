@@ -4059,7 +4059,7 @@ metadata = {
     {
       "cell_type": "code",
       "source": [
-        "hour_df.describe()"
+        "hour_df.describe(5)"
       ],
       "metadata": {
         "colab": {

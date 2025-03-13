@@ -1,7 +1,7 @@
 ## Setup Environment - Shell/Terminal
 ```
-mkdir Analisis_Data_Arif
-cd Analisis_Data_Arif
+mkdir analisis_data
+cd analisis_data
 pipenv install
 pipenv shell
 pip install -r requirements.txt

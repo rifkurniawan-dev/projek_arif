@@ -3575,22 +3575,22 @@ metadata = {
         }
       ]
     },
-    {
-      "cell_type": "code",
-      "source": [
+   cell_data = {
+    "cell_type": "code",
+    "source": [
         "# Jumlah Unik 'instant' Berdasarkan 'weathersit'\n",
         "day_df.groupby(by='weathersit').instant.nunique().sort_values(ascending=False)"
-      ]
-    },
-      "metadata": {
+    ],
+    "metadata": {
         "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 0
+            "base_uri": "https://localhost:8080/",
+            "height": 0
         },
-        "collapsed": true,
+        "collapsed": True,
         "id": "HJxx5fc2yvP6",
         "outputId": "f498e840-454c-40fa-e4e5-47bdbbcfe103"
-      },
+    }
+}
       "execution_count": 118,
       "outputs": [
         {

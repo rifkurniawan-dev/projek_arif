@@ -951,7 +951,7 @@ metadata = {
         }
       ]
     },
-"data" = {
+{
     "cell_type": "code",
     "source": [
         "day_df.isna().sum()"

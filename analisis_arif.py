@@ -9,7 +9,8 @@
       "source": [
         "<a href=\"https://colab.research.google.com/github/rifkurniawan-dev/projek_arif/blob/main/analisis_arif.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
-    },
+    }
+  ],
     {
       "cell_type": "markdown",
       "metadata": {
@@ -7755,4 +7756,4 @@
   },
   "nbformat": 4,
   "nbformat_minor": 0
-}
+    }

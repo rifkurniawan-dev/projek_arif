@@ -7116,7 +7116,7 @@ metadata = {
       "execution_count": 130,
       "outputs": []
     },
-    {
+{
       "cell_type": "code",
       "source": [
         "monthly_hour_df = hour_day_df.resample(rule='MS', on='dteday_x').agg({\n",

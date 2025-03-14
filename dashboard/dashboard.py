@@ -5,11 +5,11 @@ import seaborn as sns
 import streamlit as st
 import os
 
-file_path = "Dashboard/day.csv"
+day_df = "Dashboard/day.csv"
 
 if os.path.exists(file_path):
     day_df = pd.read_csv(file_path)
-    hour_df = day_df.copy()  # Assuming the hour_df should be the same as day_df for this case
+    hour_df = day_df.copy()  
 else:
     st.error(f"File {file_path} not found. Please check the file path.")
     raise FileNotFoundError(f"{file_path} not found.")

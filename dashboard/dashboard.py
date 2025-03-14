@@ -73,7 +73,12 @@ if day_df is not None and hour_df is not None:
         plt.xticks([1, 2, 3, 4], ['sangat Cerah','Cerah', 'Mendung', 'Hujan'])
 
         st.pyplot(plt)
-        plt.clf()import numpy as np
+       plt.clf(); import numpy as np
+plt.clf(); import numpy as np
+plt.clf(); import numpy as np
+plt.clf(); import numpy as np
+plt.clf(); import numpy as np
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns

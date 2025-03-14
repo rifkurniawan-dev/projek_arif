@@ -5,35 +5,29 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# Define file path
-file_path = "Dashboard/arif.csv"
 
-# Check if the file exists at the given path
-st.write(f"Checking file path: {os.path.abspath(file_path)}")  # Debugging: Print the absolute file path
+data = "Dashboard/arif.csv"
 
-if os.path.exists(file_path):
-    day_df = pd.read_csv(file_path)
-    hour_df = day_df.copy()  # Assuming hour_df is the same for now
+st.write(f"Checking file path: {os.path.abspath(data)}")  
+
+if os.path.exists(data):
+    day_df = pd.read_csv(data)
+    hour_df = day_df.copy()  
 else:
-    # Display error message if file is not found
-    st.error(f"File {file_path} not found. Please check the file path.")
-    raise FileNotFoundError(f"{file_path} not found. Please ensure the file is located in the correct directory.")
+    st.error(f"File {data} not found. Please check the file path.")
+    raise FileNotFoundError(f"{data} not found. Please ensure the file is located in the correct directory.")
 
-# Display first few rows of the dataframe
 st.write(day_df.head())
 
-# Display dataframe info
 st.write(day_df.info())
 
-# Check for missing values in the dataframe
+
 st.write("Missing values in day_df:")
 st.write(day_df.isna().sum())
 
-# Check for duplicate values
 st.write(f"Jumlah duplikasi: {day_df.duplicated().sum()}")
 st.write(day_df.describe())
 
-# Remove duplicates
 day_df.drop_duplicates(inplace=True)
 st.write(f"Jumlah duplikasi setelah dihapus: {day_df.duplicated().sum()}")
 

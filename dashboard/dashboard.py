@@ -8,21 +8,22 @@ import streamlit as st
 # Define file path
 file_path = "Dashboard/arif.csv"
 
-# Check if the file exists
+# Check if the file exists at the given path
 if os.path.exists(file_path):
     day_df = pd.read_csv(file_path)
     hour_df = day_df.copy()  # Assuming hour_df is the same for now
 else:
+    # Display error message if file is not found
     st.error(f"File {file_path} not found. Please check the file path.")
-    raise FileNotFoundError(f"{file_path} not found.")
+    raise FileNotFoundError(f"{file_path} not found. Please ensure the file is located in the correct directory.")
 
-# Display first few rows of day_df
+# Display first few rows of the dataframe
 st.write(day_df.head())
 
 # Display dataframe info
 st.write(day_df.info())
 
-# Check for missing values
+# Check for missing values in the dataframe
 st.write("Missing values in day_df:")
 st.write(day_df.isna().sum())
 

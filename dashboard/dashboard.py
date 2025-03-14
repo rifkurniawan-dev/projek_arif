@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import os
+# Penanganan Error untuk memastikan file ditemukan
+def load_data(file_path):
+    if os.path.exists(file_path):
+        st.write(f"✅ File ditemukan: {file_path}")
+        return pd.read_csv(file_path)
+    else:
+        st.error(f"❌ File tidak ditemukan: {file_path}. Pastikan file berada di folder 'data/' dan path sudah benar.")
+        return None
 
 
 # Memuat data

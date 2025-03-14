@@ -5,7 +5,6 @@ import seaborn as sns
 import streamlit as st
 import os
 
-# Penanganan Error untuk memastikan file ditemukan
 def load_data(file_path):
     if os.path.exists(file_path):
         st.write(f"✅ File ditemukan: {file_path}")
@@ -15,8 +14,8 @@ def load_data(file_path):
         return None
 
 # Memuat data
-day_df = load_data("../data/day.csv")
-hour_df = load_data("../data/hour.csv")
+day_df = load_data("data/day.csv")
+hour_df = load_data("data/hour.csv")
 
 if day_df is not None and hour_df is not None:
     st.write("### Data Day")

@@ -9,7 +9,7 @@ import streamlit as st
 data = "Dashboard/arif.csv"
 
 # Check if the file exists at the given path
-st.write(f"Checking file path: {os.path.abspath(data}")  # Debugging: Print the absolute file path
+st.write(f"Checking file path: {os.path.abspath(data)}") 
 
 ile_path = os.path.join(os.getcwd(), 'data', 'file.csv')  # Sesuaikan dengan struktur folder Anda
 if not os.path.exists(data):

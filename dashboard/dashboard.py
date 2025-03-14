@@ -6,19 +6,14 @@ import seaborn as sns
 import streamlit as st
 
 # Define file path
-file_path = "Dashboard/arif.csv"
+data = "Dashboard/arif.csv"
 
 # Check if the file exists at the given path
-st.write(f"Checking file path: {os.path.abspath(file_path)}")  # Debugging: Print the absolute file path
+st.write(f"Checking file path: {os.path.abspath(data}")  # Debugging: Print the absolute file path
 
-if os.path.exists(file_path):
-    day_df = pd.read_csv(file_path)
-    hour_df = day_df.copy()  # Assuming hour_df is the same for now
-else:
-    # Display error message if file is not found
-    st.error(f"File {file_path} not found. Please check the file path.")
-    raise FileNotFoundError(f"{file_path} not found. Please ensure the file is located in the correct directory.")
-
+ile_path = os.path.join(os.getcwd(), 'data', 'file.csv')  # Sesuaikan dengan struktur folder Anda
+if not os.path.exists(data):
+    raise FileNotFoundError(f"{data} not found. Please ensure the file is located in the correct directory.")
 # Display first few rows of the dataframe
 st.write(day_df.head())  # Corrected this line
 

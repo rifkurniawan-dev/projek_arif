@@ -2746,10 +2746,10 @@ metadata = {
       },
       "execution_count": 113,
       "outputs": [
-        {
-          "output_type": "execute_result",
-          "data": {
-            "text/plain": [
+    {
+      "output_type": "execute_result",
+      "data": {
+        "text/plain": [
               "           instant      dteday      season          yr        mnth  \\\n",
               "count   731.000000         731  731.000000  731.000000  731.000000   \n",
               "unique         NaN         731         NaN         NaN         NaN   \n",
@@ -3273,7 +3273,8 @@ metadata = {
           "execution_count": 113
         }
       ]
-    },
+    }
+},
 {
       "cell_type": "code",
       "source": [

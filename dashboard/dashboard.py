@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-day_df = pd.read_csv("Dashboard/data_utamaarif")
+day_df = pd.read_csv("Dashboard/day.csv")
 day_df.head()
 
-hour_df = pd.read_csv("hour.csv")
+hour_df = pd.read_csv("Dashboard/day.csv")
 hour_df.head()
 
 day_df.info()

@@ -1,5 +1,5 @@
 
-## Setup Environment - Shell/Terminal
+## Setup Environment
 ```
 conda create --name main-ds python=3.13
 conda activate main-ds

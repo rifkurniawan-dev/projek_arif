@@ -1,10 +1,9 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-
-
 
 # Define file path
 file_path = "Dashboard/arif.csv"

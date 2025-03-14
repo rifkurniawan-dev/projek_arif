@@ -9,9 +9,9 @@ import streamlit as st
 data = "Dashboard/arif.csv"
 
 st.write(f"Checking file path: {os.path.abspath(data)}") 
-st.write(day_df.head())
+st.write(day_df.head(data))
 
-st.write(day_df.info())
+st.write(day_df.info(data))
 
 
 st.write("Missing values in day_df:")

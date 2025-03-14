@@ -12,7 +12,7 @@ if os.path.exists(day_df):
     hour_df = day_df.copy()  
 else:
     st.error(f"File {day_df} not found. Please check the file path.")
-    raise FileNotFoundError(f"{day_df} not found.")
+    raise FileNotFoundError(f"{file_path} not found.")
 
 st.write(day_df.head())
 

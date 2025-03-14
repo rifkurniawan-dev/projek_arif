@@ -70,7 +70,7 @@ if day_df is not None and hour_df is not None:
         plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
         plt.xlabel('Kondisi Cuaca')
         plt.ylabel('Rata-rata Penyewaan Sepeda')
-        plt.xticks([1, 2, 3, 4], ['sangat Cerah','Cerah', 'Mendung', 'Hujan'])
+        plt.xticks([0, 1, 2, 3], ['sangat Cerah','Cerah', 'Mendung', 'Hujan'])
 
         st.pyplot(plt)
         plt.clf()

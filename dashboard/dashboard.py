@@ -11,8 +11,8 @@ if os.path.exists(day_df):
     day_df = pd.read_csv(file_path)
     hour_df = day_df.copy()  
 else:
-    st.error(f"File {file_path} not found. Please check the file path.")
-    raise FileNotFoundError(f"{file_path} not found.")
+    st.error(f"File {day_df} not found. Please check the file path.")
+    raise FileNotFoundError(f"{day_df} not found.")
 
 st.write(day_df.head())
 

@@ -7,7 +7,7 @@ import os
 
 day_df = "Dashboard/day.csv"
 
-if os.path.exists(file_path):
+if os.path.exists(day_df):
     day_df = pd.read_csv(file_path)
     hour_df = day_df.copy()  
 else:

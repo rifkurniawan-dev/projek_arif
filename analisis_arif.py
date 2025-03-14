@@ -2738,8 +2738,7 @@ metadata = {
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 0
-        },
-        "collapsed": "true",
+        "collapsed": true,
         "id": "GWA5ORkznuos",
         "outputId": "b4af6a77-6ec2-4d93-b91e-d24735fe906d"
       },

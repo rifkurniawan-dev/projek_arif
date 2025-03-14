@@ -3,52 +3,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os
 
-day_df = pd.read_csv("Dashboard/day.csv")
-day_df.head()
+file_path = "Dashboard/day.csv"
 
-hour_df = pd.read_csv("Dashboard/day.csv")
-hour_df.head()
+if os.path.exists(file_path):
+    day_df = pd.read_csv(file_path)
+    hour_df = day_df.copy()  # Assuming the hour_df should be the same as day_df for this case
+else:
+    st.error(f"File {file_path} not found. Please check the file path.")
+    raise FileNotFoundError(f"{file_path} not found.")
 
-day_df.info()
+st.write(day_df.head())
 
-day_df.isna().sum()
+st.write(day_df.info())
+st.write("Missing values in day_df:")
+st.write(day_df.isna().sum())
 
-print("Jumlah duplikasi: ", day_df.duplicated().sum())
-
-day_df.describe()
-
-
-hour_df.info()
-
-hour_df.isna().sum()
-
-print("Jumlah duplikasi: ", hour_df.duplicated().sum())
-
-hour_df.describe()
-
-
-day_df.duplicated().sum()
+st.write(f"Jumlah duplikasi: {day_df.duplicated().sum()}")
+st.write(day_df.describe())
 
 day_df.drop_duplicates(inplace=True)
-
-print("Jumlah duplikasi: ", day_df.duplicated().sum())
-
-"""Duplikat Hour"""
-
-hour_df.duplicated().sum()
-
-hour_df.drop_duplicates(inplace=True)
-
-print("jumlah duplikasi: ", hour_df.duplicated().sum())
-
-
-
-day_df.sample(5)
-
-day_df.describe(include="all")
-
-day_df.instant.is_unique
+st.write(f"Jumlah duplikasi setelah dihapus: {day_df.duplicated().sum()}")
 
 season_stats = day_df.groupby(by='season').agg({
     'instant': 'nunique',
@@ -57,36 +33,19 @@ season_stats = day_df.groupby(by='season').agg({
     'windspeed': ['max', 'min', 'mean', 'std'],
     'cnt': ['max', 'min', 'mean', 'std']
 })
+st.write('\nStatistik Deskriptif Berdasarkan Season:')
+st.write(season_stats)
 
-print('\nStatistik Deskriptif Berdasarkan Season:')
-print(season_stats)
-
-#Jumlah Unik 'instant' Berdasarkan 'mnth'
-day_df.groupby(by="mnth").instant.nunique().sort_values(ascending=False)
-
-# Jumlah Unik 'instant' Berdasarkan 'weathersit'
-day_df.groupby(by='weathersit').instant.nunique().sort_values(ascending=False)
-
-hour_df.sample(5)
-
-hour_df.describe(include="all")
-
-hour_df.head()
-
-hour_df.groupby(by="instant")['cnt'].sum()
+# Group by 'mnth' and 'weathersit' to get unique instant counts
+st.write(day_df.groupby(by="mnth").instant.nunique().sort_values(ascending=False))
+st.write(day_df.groupby(by='weathersit').instant.nunique().sort_values(ascending=False))
 
 
-hour_day_df = pd.merge(
-    left= hour_df,
-    right=day_df,
-    how="left",
-    left_on="season",
-    right_on="season"
-)
-hour_day_df.head()
+hour_day_df = pd.merge(hour_df, day_df, how="left", on="season")
+
 
 hour_day_df.groupby(by="temp_y").agg({
-     'cnt_y': 'nunique',
+    'cnt_y': 'nunique',
     'casual_y': 'sum',
     'registered_y': 'sum'
 })
@@ -97,32 +56,22 @@ hour_day_df.groupby(by="weathersit_x").agg({
     'registered_y': 'sum'
 }).sort_values(by="registered_y", ascending=False)
 
-
-
-hour_day_df.sample(5)
-
-hour_df.head()
-
 hour_day_df['dteday_x'] = pd.to_datetime(hour_day_df['dteday_x'])
 
 monthly_hour_df = hour_day_df.resample(rule='MS', on='dteday_x').agg({
     'instant_x': 'nunique',
     'cnt_x': 'sum'
 })
+
 monthly_hour_df.index = monthly_hour_df.index.strftime('%B')
 monthly_hour_df = monthly_hour_df.reset_index()
 monthly_hour_df.rename(columns={
     'instant_x': 'hour_count',
     'cnt_x': 'revenue'
 }, inplace=True)
-monthly_hour_df
 
 plt.figure(figsize=(12, 6))
-plt.bar(
-    monthly_hour_df["dteday_x"],
-    monthly_hour_df["hour_count"],
-    color="#72BCD4"
-)
+plt.bar(monthly_hour_df["dteday_x"], monthly_hour_df["hour_count"], color="#72BCD4")
 plt.title("Jumlah Penyewaan Sepeda per Bulan", loc="center", fontsize=20)
 plt.xlabel("Bulan", fontsize=12)
 plt.ylabel("Jumlah Penyewaan Sepeda", fontsize=12)
@@ -130,7 +79,7 @@ plt.xticks(rotation=45, fontsize=10)
 plt.yticks(fontsize=10)
 plt.show()
 
-plt.figure(figsize=(10,6))
+plt.figure(figsize=(10, 6))
 sns.barplot(x='season', y='cnt', data=hour_df, errorbar='sd')
 plt.title('Rata-rata Jumlah Penyewaan Sepeda Berdasarkan Musim')
 plt.xlabel('Musim')

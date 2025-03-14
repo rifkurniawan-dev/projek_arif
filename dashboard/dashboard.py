@@ -3,10 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-import os
+from babel.numbers import format_currency
+
 
 # Define file path
-file_path = "Dashboard/day.csv"
+file_path = "Dashboard/arif.csv"
 
 # Check if the file exists
 if os.path.exists(file_path):

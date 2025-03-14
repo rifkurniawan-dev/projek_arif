@@ -8,15 +8,7 @@ import streamlit as st
 
 data = "Dashboard/arif.csv"
 
-st.write(f"Checking file path: {os.path.abspath(data)}")  
-
-if os.path.exists(data):
-    day_df = pd.read_csv(data)
-    hour_df = day_df.copy()  
-else:
-    st.error(f"File {data} not found. Please check the file path.")
-    raise FileNotFoundError(f"{data} not found. Please ensure the file is located in the correct directory.")
-
+st.write(f"Checking file path: {os.path.abspath(data)}") 
 st.write(day_df.head())
 
 st.write(day_df.info())

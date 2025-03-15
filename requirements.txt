@@ -1,5 +1,5 @@
 streamlit
-pandas
-numpy
+NumPy==1.26.4
+Pandas==2.2.2
 matplotlib
 seaborn

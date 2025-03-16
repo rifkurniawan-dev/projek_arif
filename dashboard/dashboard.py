@@ -5,7 +5,7 @@ import seaborn as sns
 import streamlit as st
 from babel.numbers import format_currency
 
-data = pd.read_csv("Dashboard/hour_day.csv")
+data = pd.read_csv("dashboard/hour_day.csv")
 
 data['datetime'] = pd.to_datetime(data[['year', 'month', 'day', 'hour']])
 

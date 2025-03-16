@@ -126,7 +126,6 @@ st.pyplot(fig)
 
 st.subheader("Pengaruh Musim dan Cuaca")
 col1, col2 = st.columns(2)
-
 with col1:
     if not byseason_df.empty:
         # Pemetaan nama musim
@@ -140,39 +139,20 @@ with col1:
         # Menambahkan kolom label musim
         byseason_df["season_label"] = byseason_df["season_x"].map(season_mapping)
         
-        # Membuat empat diagram perbandingan untuk setiap musim
-        fig, ax = plt.subplots(2, 2, figsize=(16, 12))
-        fig.suptitle('Perbandingan Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=20)
+        # Membuat plot untuk empat perbandingan dalam satu diagram
+        plt.figure(figsize=(14, 8))
+        
+        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 1], color="#90CAF9", label='Musim Dingin')
+        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 2], color="#FFEB3B", label='Musim Semi')
+        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 3], color="#F44336", label='Musim Panas')
+        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 4], color="#8BC34A", label='Musim Gugur')
 
-        # Diagram 1: Musim Dingin
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 1], ax=ax[0, 0], color="#90CAF9")
-        ax[0, 0].set_title('Musim Dingin')
-        ax[0, 0].set_xlabel('Musim')
-        ax[0, 0].set_ylabel('Jumlah Penyewaan')
-        ax[0, 0].set_xticklabels(['Musim Dingin'], rotation=45)
-
-        # Diagram 2: Musim Semi
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 2], ax=ax[0, 1], color="#FFEB3B")
-        ax[0, 1].set_title('Musim Semi')
-        ax[0, 1].set_xlabel('Musim')
-        ax[0, 1].set_ylabel('Jumlah Penyewaan')
-        ax[0, 1].set_xticklabels(['Musim Semi'], rotation=45)
-
-        # Diagram 3: Musim Panas
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 3], ax=ax[1, 0], color="#F44336")
-        ax[1, 0].set_title('Musim Panas')
-        ax[1, 0].set_xlabel('Musim')
-        ax[1, 0].set_ylabel('Jumlah Penyewaan')
-        ax[1, 0].set_xticklabels(['Musim Panas'], rotation=45)
-
-        # Diagram 4: Musim Gugur
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 4], ax=ax[1, 1], color="#8BC34A")
-        ax[1, 1].set_title('Musim Gugur')
-        ax[1, 1].set_xlabel('Musim')
-        ax[1, 1].set_ylabel('Jumlah Penyewaan')
-        ax[1, 1].set_xticklabels(['Musim Gugur'], rotation=45)
-
-        st.pyplot(fig)  # Menampilkan plot dengan empat perbandingan
+        plt.title('Perbandingan Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
+        plt.xlabel('Musim', fontsize=14)
+        plt.ylabel('Jumlah Penyewaan', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.legend(title="Musim", loc="upper right")
+        st.pyplot(plt.gcf())  # Menampilkan plot di Streamlit
     else:
         st.warning("Data untuk penyewaan berdasarkan musim tidak tersedia.")
 

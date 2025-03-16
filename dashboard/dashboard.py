@@ -114,25 +114,33 @@ with col2:
     st.metric("Total Pendapatan", value=total_revenue)
 
 # Plot Tren Penyewaan Harian
+st.subheader("Tren Penyewaan Harian")
 fig, ax = plt.subplots(figsize=(16, 8))
-ax.plot(daily_rentals_df["dteday_x"], daily_rentals_df["rental_count"], marker='o', linewidth=2, color="#90CAF9")
+sns.lineplot(x="dteday_x", y="rental_count", data=daily_rentals_df, marker='o', color="#90CAF9", ax=ax)
 ax.set_title("Tren Penyewaan Harian", fontsize=20)
 ax.set_xlabel("Tanggal", fontsize=15)
 ax.set_ylabel("Jumlah Penyewaan", fontsize=15)
+ax.grid(True, which='both', linestyle='--', linewidth=0.7)
+plt.xticks(rotation=45)
 st.pyplot(fig)
 
 st.subheader("Pengaruh Musim dan Cuaca")
-
 col1, col2 = st.columns(2)
 
 with col1:
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x="season_x", y="rental_count", data=byseason_df, palette="Set2", ax=ax)
     ax.set_title("Jumlah Penyewaan Berdasarkan Musim", fontsize=16)
+    ax.set_xlabel("Musim", fontsize=12)
+    ax.set_ylabel("Jumlah Penyewaan", fontsize=12)
+    plt.xticks(rotation=45)
     st.pyplot(fig)
 
 with col2:
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x="weathersit_x", y="rental_count", data=byweather_df, palette="Blues", ax=ax)
     ax.set_title("Jumlah Penyewaan Berdasarkan Cuaca", fontsize=16)
+    ax.set_xlabel("Cuaca", fontsize=12)
+    ax.set_ylabel("Jumlah Penyewaan", fontsize=12)
+    plt.xticks(rotation=45)
     st.pyplot(fig)

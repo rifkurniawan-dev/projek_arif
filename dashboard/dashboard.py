@@ -130,7 +130,12 @@ col1, col2 = st.columns(2)
 with col1:
     if not byseason_df.empty:
         # Pemetaan nama musim
-        season_mapping = {1: "Musim Semi", 2: "Musim Panas", 3: "Musim Gugur", 4: "Musim Dingin"}
+        season_mapping = {
+            1: "Musim Dingin", 
+            2: "Musim Semi", 
+            3: "Musim Panas", 
+            4: "Musim Gugur"
+        }
         
         # Menambahkan kolom label musim
         byseason_df["season_label"] = byseason_df["season_x"].map(season_mapping)
@@ -145,6 +150,7 @@ with col1:
         st.pyplot(plt.gcf())  # Menampilkan plot di Streamlit
     else:
         st.warning("Data untuk penyewaan berdasarkan musim tidak tersedia.")
+
 
 with col2:
     fig, ax = plt.subplots(figsize=(10, 6))

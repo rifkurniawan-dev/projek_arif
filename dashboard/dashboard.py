@@ -6,12 +6,14 @@ import streamlit as st
 import os
 from babel.numbers import format_currency
 
-# Memuat data dari file CSV
 def load_data():
-    day_df = pd.read_csv('data/day.csv')
-    hour_df = pd.read_csv('data/hour.csv')
+    day_file = 'data/day.csv'
+    hour_file = 'data/hour.csv'
+    
+    if os.path.exists(day_file) and os.path.exists(hour_file):
+        day_df = pd.read_csv(day_file)
+        hour_df = pd.read_csv(hour_file)
 
-    if day_df is not None and hour_df is not None:
         st.write("### Data Day")
         st.write(day_df.head())
 
@@ -21,9 +23,13 @@ def load_data():
         # Menggabungkan kedua dataframe
         merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
         return merged_df
+    else:
+        st.error("One or both of the required files (day.csv or hour.csv) are missing.")
+        return None
 
 # Memuat data
 data = load_data()
+if data is not None:
 
 # Pastikan kolom 'dteday_x' dalam format datetime
 # Cek apakah ada nilai yang tidak dapat dikonversi

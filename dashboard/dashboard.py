@@ -1,14 +1,19 @@
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os
 from babel.numbers import format_currency
 
 data = pd.read_csv("dashboard/hour_day.csv")
 
-data['datetime'] = pd.to_datetime(data[['year', 'month', 'day', 'hour']])
-
+# Jika kolom year, month, day, dan hour ada, gabungkan menjadi satu kolom datetime
+if all(col in data.columns for col in ['year', 'month', 'day', 'hour']):
+    data['datetime'] = pd.to_datetime(data[['year', 'month', 'day', 'hour']].astype(str).agg('-'.join, axis=1), format='%Y-%m-%d-%H')
+else:
+    st.error("Kolom 'year', 'month', 'day', atau 'hour' tidak ditemukan dalam file 'hour_day.csv'.")
 
 # Helper functions
 

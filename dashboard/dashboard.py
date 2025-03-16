@@ -11,6 +11,7 @@ def load_data():
     hour_file = 'data/hour.csv'
     
     if os.path.exists(day_file) and os.path.exists(hour_file):
+        # Properly indent the following lines inside the if block
         day_df = pd.read_csv(day_file)
         hour_df = pd.read_csv(hour_file)
 
@@ -30,7 +31,10 @@ def load_data():
 # Memuat data
 data = load_data()
 if data is not None:
-
+    # Properly indent this block of code
+    data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')
+    data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
+    
 # Pastikan kolom 'dteday_x' dalam format datetime
 # Cek apakah ada nilai yang tidak dapat dikonversi
 data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')

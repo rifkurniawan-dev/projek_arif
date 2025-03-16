@@ -128,27 +128,24 @@ st.subheader("Pengaruh Musim dan Cuaca")
 col1, col2 = st.columns(2)
 
 with col1:
-    # Mengecek apakah data 'byseason_df' sudah terbentuk dengan benar
     if not byseason_df.empty:
-        # Buat peta nama musim
+        # Pemetaan nama musim
         season_mapping = {1: "Musim Semi", 2: "Musim Panas", 3: "Musim Gugur", 4: "Musim Dingin"}
         
-        # Menambahkan kolom baru untuk label musim
+        # Menambahkan kolom label musim
         byseason_df["season_label"] = byseason_df["season_x"].map(season_mapping)
         
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.barplot(x="season_label", y="rental_count", data=byseason_df, palette="Set2", ax=ax)
-        ax.set_title("Jumlah Penyewaan Berdasarkan Musim", fontsize=16)
-        ax.set_xlabel("Musim", fontsize=12)
-        ax.set_ylabel("Jumlah Penyewaan", fontsize=12)
-        for p in ax.patches:
-            height = p.get_height()
-            ax.annotate(f'{int(height)}', (p.get_x() + p.get_width() / 2., height),
-                        ha='center', va='bottom', fontsize=10, color='black')
+        # Membuat plot
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='season_label', y='rental_count', data=byseason_df, color="#72BCD4")
+        plt.title('Rata-rata Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
+        plt.xlabel('Musim', fontsize=14)
+        plt.ylabel('Rata-rata Jumlah Penyewaan Sepeda', fontsize=14)
         plt.xticks(rotation=45)
-        st.pyplot(fig)
+        st.pyplot(plt.gcf())  # Menampilkan plot di Streamlit
     else:
         st.warning("Data untuk penyewaan berdasarkan musim tidak tersedia.")
+
 with col2:
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x="weathersit_x", y="rental_count", data=byweather_df, palette="Blues", ax=ax)

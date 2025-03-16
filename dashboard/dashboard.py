@@ -6,25 +6,16 @@ import streamlit as st
 import os
 from babel.numbers import format_currency
 
-# Fungsi untuk memuat data
-def load_data():
-    if not (os.path.exists("day.csv") and os.path.exists("hour.csv")):
-        st.error("File 'day.csv' dan/atau 'hour.csv' tidak ditemukan. Unggah file di bawah ini.")
-        day_file = st.file_uploader("Unggah file day.csv", type=["csv"])
-        hour_file = st.file_uploader("Unggah file hour.csv", type=["csv"])
-        
-        if day_file is None or hour_file is None:
-            st.stop()
-        
-        day_df = pd.read_csv("data/day.csv")
-        hour_df = pd.read_csv("data/hour_csv")
-    else:
-        day_df = pd.read_csv("data/day.csv")
-        hour_df = pd.read_csv("data/hour.csv")
+day_df = pd.read_csv('data/day.csv')
+hour_df = pd.read_csv('data/hour.csv')
 
-    day_df["dteday"] = pd.to_datetime(day_df["dteday"])
-    hour_df["dteday"] = pd.to_datetime(hour_df["dteday"])
-    
+if day_df is not None and hour_df is not None:
+    st.write("### Data Day")
+    st.write(day_df.head())
+
+    st.write("### Data Hour")
+    st.write(hour_df.head())
+
     # Menggabungkan kedua dataframe
     merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
     

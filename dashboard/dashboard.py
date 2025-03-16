@@ -46,15 +46,15 @@ data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr']
 min_date = pd.to_datetime(data["dteday_x"].min()).date()
 max_date = pd.to_datetime(data["dteday_x"].max()).date()
 
-# Sidebar untuk filter tanggal
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
-    start_date, end_date = st.date_input(
-    'Rentang Waktu', 
-    min_value=min_date, 
-    max_value=max_date, 
-    value=[min_date, max_date]  # this is correct if min_date and max_date are datetime.date objects
-)
+    if min_date and max_date:  # Mengecek apakah min_date dan max_date berhasil ditemukan
+        start_date, end_date = st.date_input(
+            'Rentang Waktu', 
+            min_value=min_date, 
+            max_value=max_date, 
+            value=[min_date, max_date]  # Pastikan ini sesuai dengan format datetime.date
+        )
 # Memfilter data berdasarkan rentang waktu yang dipilih
 filtered_data = data[(data["dteday_x"] >= pd.to_datetime(start_date)) & (data["dteday_x"] <= pd.to_datetime(end_date))]
 

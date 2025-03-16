@@ -64,12 +64,8 @@ else:
 
 
 # Konversi start_date dan end_date menjadi datetime64[ns]
-if isinstance(start_date, list) and len(start_date) == 2:
-    start_date, end_date = pd.to_datetime(start_date[0]), pd.to_datetime(start_date[1])
-else:
-    start_date = pd.to_datetime(start_date)
-    end_date = pd.to_datetime(start_date)
-
+start_date = pd.to_datetime(start_date)
+end_date = pd.to_datetime(end_date)
 # Filter data
 filtered_data = data[(data["dteday_x"] >= start_date) & (data["dteday_x"] <= end_date)]
 # Fungsi pembantu untuk membuat DataFrame penyewaan harian

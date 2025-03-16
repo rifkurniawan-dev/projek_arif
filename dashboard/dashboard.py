@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 from babel.numbers import format_currency
-import os
 
-sns.set(style='dark')
+data = pd.read_csv("Dashboard/hour_day.csv")
+
+data['datetime'] = pd.to_datetime(data[['year', 'month', 'day', 'hour']])
+
 
 # Helper functions
 

@@ -16,11 +16,11 @@ def load_data():
         if day_file is None or hour_file is None:
             st.stop()
         
-        day_df = pd.read_csv(day_file)
-        hour_df = pd.read_csv(hour_file)
+        day_df = pd.read_csv("data/day.csv")
+        hour_df = pd.read_csv("data/hour_csv")
     else:
-        day_df = pd.read_csv("day.csv")
-        hour_df = pd.read_csv("hour.csv")
+        day_df = pd.read_csv("data/day.csv")
+        hour_df = pd.read_csv("data/hour.csv")
 
     day_df["dteday"] = pd.to_datetime(day_df["dteday"])
     hour_df["dteday"] = pd.to_datetime(hour_df["dteday"])

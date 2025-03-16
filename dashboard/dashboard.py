@@ -37,8 +37,8 @@ data = load_data()
 data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
 
 # Mencari rentang waktu data
-min_date = data["dteday_x"].min()
-max_date = data["dteday_x"].max()
+min_date = pd.to_datetime(data["dteday_x"].min()).date()
+max_date = pd.to_datetime(data["dteday_x"].max()).date()
 
 # Sidebar untuk filter tanggal
 with st.sidebar:

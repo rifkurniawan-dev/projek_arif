@@ -15,11 +15,12 @@ def load_data():
         day_df = pd.read_csv(day_file)
         hour_df = pd.read_csv(hour_file)
 
-        st.write("### Data Day")
-        st.write(day_df.head())
+        # Remove or comment out the following lines to hide the data display
+        # st.write("### Data Day")
+        # st.write(day_df.head())
 
-        st.write("### Data Hour")
-        st.write(hour_df.head())
+        # st.write("### Data Hour")
+        # st.write(hour_df.head())
 
         # Menggabungkan kedua dataframe
         merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")

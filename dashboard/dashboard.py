@@ -25,38 +25,43 @@ def load_data():
 # Memuat data
 data = load_data()
 if data is not None:
-    # Hanya lakukan pemrosesan jika data berhasil dimuat
-    data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')
-    data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
+    try:
+        # Hanya lakukan pemrosesan jika data berhasil dimuat
+        data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')
+        data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
 
-    # Pastikan kolom 'dteday_x' dalam format datetime
-    data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')
-    
-    # Tangani nilai yang hilang setelah konversi, misalnya dengan menghapus baris yang memiliki nilai NaT
-    data = data.dropna(subset=['dteday_x'])
-    
-    # Pastikan kolom 'hr' ada dan dalam format yang sesuai
-    data['hr'] = data['hr'].fillna(0).astype(int)
-    
-    # Membuat kolom datetime dari 'dteday_x' dan 'hr'
-    data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
-    
-    # Mencari rentang waktu data
-    min_date = data["dteday_x"].min().date() if not data["dteday_x"].isna().all() else None
-    max_date = data["dteday_x"].max().date() if not data["dteday_x"].isna().all() else None
-    
-    # Sidebar untuk filter tanggal
-    with st.sidebar:
-        st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
-        if min_date and max_date:  # Mengecek apakah min_date dan max_date berhasil ditemukan
-            start_date, end_date = st.date_input(
-                'Rentang Waktu', 
-                min_value=min_date, 
-                max_value=max_date, 
-                value=[min_date, max_date]
-            )
+        # Tangani nilai yang hilang setelah konversi
+        data = data.dropna(subset=['dteday_x'])
+
+        # Pastikan kolom 'hr' ada dan dalam format yang sesuai
+        data['hr'] = data['hr'].fillna(0).astype(int)
+
+        # Membuat kolom datetime dari 'dteday_x' dan 'hr'
+        data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
+
+        # Mencari rentang waktu data
+        min_date = data["dteday_x"].min().date() if not data["dteday_x"].isna().all() else None
+        max_date = data["dteday_x"].max().date() if not data["dteday_x"].isna().all() else None
+
+        if min_date and max_date:
+            # Sidebar untuk filter tanggal
+            with st.sidebar:
+                st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
+                start_date, end_date = st.date_input(
+                    'Rentang Waktu',
+                    min_value=min_date,
+                    max_value=max_date,
+                    value=[min_date, max_date]
+                )
+        else:
+            st.error("Rentang tanggal tidak valid. Pastikan data yang diupload mengandung kolom tanggal yang valid.")
+
+    except Exception as e:
+        st.error(f"Terjadi kesalahan dalam pemrosesan data: {e}")
+
 else:
     st.error("Data gagal dimuat. Pastikan file day.csv dan hour.csv tersedia di folder data.")
+
 
 # Memfilter data berdasarkan rentang waktu yang dipilih
 filtered_data = data[(data["dteday_x"] >= pd.to_datetime(start_date)) & (data["dteday_x"] <= pd.to_datetime(end_date))]

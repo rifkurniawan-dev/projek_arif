@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 from babel.numbers import format_currency
+import os
 
 sns.set(style='dark')
 
@@ -36,6 +37,9 @@ def create_byweather_df(df):
     return byweather_df
 
 def load_data():
+    if not (os.path.exists("day.csv") and os.path.exists("hour.csv")):
+        st.error("File 'day.csv' dan/atau 'hour.csv' tidak ditemukan. Pastikan file tersebut ada di direktori yang sama dengan script ini.")
+        st.stop()
     day_df = pd.read_csv("day.csv")
     hour_df = pd.read_csv("hour.csv")
     day_df["dteday"] = pd.to_datetime(day_df["dteday"])

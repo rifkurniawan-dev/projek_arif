@@ -63,8 +63,12 @@ else:
     st.error("Data gagal dimuat. Pastikan file day.csv dan hour.csv tersedia di folder data.")
 
 
-# Memfilter data berdasarkan rentang waktu yang dipilih
-filtered_data = data[(data["dteday_x"] >= pd.to_datetime(start_date)) & (data["dteday_x"] <= pd.to_datetime(end_date))]
+# Konversi start_date dan end_date menjadi datetime64[ns]
+start_date = pd.to_datetime(start_date)
+end_date = pd.to_datetime(end_date)
+
+# Filter data
+filtered_data = data[(data["dteday_x"] >= start_date) & (data["dteday_x"] <= end_date)]
 # Fungsi pembantu untuk membuat DataFrame penyewaan harian
 def create_daily_rentals_df(df):
     # Gunakan resample dengan 'dteday_x' yang sudah dalam format datetime

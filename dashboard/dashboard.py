@@ -7,28 +7,21 @@ import os
 from babel.numbers import format_currency
 
 def load_data():
-    day_file = 'data/day.csv'
-    hour_file = 'data/hour.csv'
+    day_df = 'data/day.csv'
+    hour_df = 'data/hour.csv'
     
-    if os.path.exists(day_file) and os.path.exists(hour_file):
-        # Properly indent the following lines inside the if block
-        day_df = pd.read_csv(day_file)
-        hour_df = pd.read_csv(hour_file)
-
-        # Remove or comment out the following lines to hide the data display
-        # st.write("### Data Day")
-        # st.write(day_df.head())
-
-        # st.write("### Data Hour")
-        # st.write(hour_df.head())
-
-        # Menggabungkan kedua dataframe
-        merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
-        return merged_df
-    else:
-        st.error("One or both of the required files (day.csv or hour.csv) are missing.")
+    try:
+        if os.path.exists(day_df) and os.path.exists(hour_df):
+            day_df = pd.read_csv(day_df)
+            hour_df = pd.read_csv(hour_df)
+            merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
+            return merged_df
+        else:
+            st.error("One or both of the required files (day.csv or hour.csv) are missing.")
+            return None
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {e}")
         return None
-
 # Memuat data
 data = load_data()
 if data is not None:

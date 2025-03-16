@@ -65,7 +65,6 @@ else:
 
 # Memfilter data berdasarkan rentang waktu yang dipilih
 filtered_data = data[(data["dteday_x"] >= pd.to_datetime(start_date)) & (data["dteday_x"] <= pd.to_datetime(end_date))]
-
 # Fungsi pembantu untuk membuat DataFrame penyewaan harian
 def create_daily_rentals_df(df):
     # Gunakan resample dengan 'dteday_x' yang sudah dalam format datetime

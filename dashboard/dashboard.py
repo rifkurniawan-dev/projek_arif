@@ -6,20 +6,21 @@ import streamlit as st
 import os
 from babel.numbers import format_currency
 
-day_df = pd.read_csv('data/day.csv')
-hour_df = pd.read_csv('data/hour.csv')
+# Memuat data dari file CSV
+def load_data():
+    day_df = pd.read_csv('data/day.csv')
+    hour_df = pd.read_csv('data/hour.csv')
 
-if day_df is not None and hour_df is not None:
-    st.write("### Data Day")
-    st.write(day_df.head())
+    if day_df is not None and hour_df is not None:
+        st.write("### Data Day")
+        st.write(day_df.head())
 
-    st.write("### Data Hour")
-    st.write(hour_df.head())
+        st.write("### Data Hour")
+        st.write(hour_df.head())
 
-    # Menggabungkan kedua dataframe
-    merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
-    
-    return merged_df
+        # Menggabungkan kedua dataframe
+        merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
+        return merged_df
 
 # Memuat data
 data = load_data()

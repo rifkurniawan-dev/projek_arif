@@ -89,13 +89,14 @@ if data is not None:
             st.metric("Total Pendapatan", value=total_revenue)
 
         # Grafik Penyewaan Harian
-        plt.figure(figsize=(10, 5))
+       plt.figure(figsize=(10, 5))
         sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color="blue")
-        plt.title(""Jumlah Penyewaan Sepeda Harian (2011-2012)", fontsize=20)
+        plt.title("Jumlah Penyewaan Sepeda Harian (2011-2012)", fontsize=20)
         plt.xlabel("Tanggal", fontsize=12)
         plt.ylabel("Jumlah Penyewaan", fontsize=12)
         plt.xticks(rotation=45)
         st.pyplot(plt)
+
 
         # Grafik Penyewaan Berdasarkan Musim
         plt.figure(figsize=(10, 6))

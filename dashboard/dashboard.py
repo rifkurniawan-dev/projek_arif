@@ -91,7 +91,7 @@ if data is not None:
         # Grafik Penyewaan Harian
         plt.figure(figsize=(10, 5))
         sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color="blue")
-        plt.title("Jumlah Penyewaan Sepeda Harian", fontsize=20)
+        plt.title(""Jumlah Penyewaan Sepeda per Musim dan Bulan (2011-2012)", fontsize=20)
         plt.xlabel("Tanggal", fontsize=12)
         plt.ylabel("Jumlah Penyewaan", fontsize=12)
         plt.xticks(rotation=45)

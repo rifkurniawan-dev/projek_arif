@@ -114,14 +114,20 @@ with col2:
     st.metric("Total Pendapatan", value=total_revenue)
 
 # Plot Tren Penyewaan Harian
-st.subheader("Tren Penyewaan Harian")
-fig, ax = plt.subplots(figsize=(16, 8))
-sns.lineplot(x="dteday_x", y="rental_count", data=daily_rentals_df, marker='o', color="#90CAF9", ax=ax)
-ax.set_title("Tren Penyewaan Harian", fontsize=20)
-ax.set_xlabel("Tanggal", fontsize=15)
-ax.set_ylabel("Jumlah Penyewaan", fontsize=15)
-ax.grid(True, which='both', linestyle='--', linewidth=0.7)
-plt.xticks(rotation=45)
+
+plt.figure(figsize=(10, 5))
+sns.barplot(
+    x='dteday_x',
+    y='day_count',
+    hue='season',
+    data=monthly_day_df,
+    palette="Set2"
+)
+plt.title("Jumlah Penyewaan Sepeda per Musim dan Bulan (2011-2012)", loc="center", fontsize=20)
+plt.xlabel("Bulan", fontsize=12)
+plt.ylabel("Jumlah Penyewaan", fontsize=12)
+plt.xticks(rotation=45, fontsize=10)
+plt.yticks(fontsize=10)
 st.pyplot(fig)
 
 st.subheader("Pengaruh Musim dan Cuaca")

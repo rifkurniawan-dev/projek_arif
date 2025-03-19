@@ -120,7 +120,6 @@ sns.barplot(
     x='dteday_x',
     y='day_count',
     hue='season',
-    data=monthly_day_df,
     palette="Set2"
 )
 plt.title("Jumlah Penyewaan Sepeda per Musim dan Bulan (2011-2012)", loc="center", fontsize=20)

@@ -120,6 +120,7 @@ sns.barplot(
     x='dteday_x',
     y='day_count',
     hue='season',
+    data=monthly_day_df,
     palette="Set2"
 )
 plt.title("Jumlah Penyewaan Sepeda per Musim dan Bulan (2011-2012)", loc="center", fontsize=20)
@@ -127,7 +128,8 @@ plt.xlabel("Bulan", fontsize=12)
 plt.ylabel("Jumlah Penyewaan", fontsize=12)
 plt.xticks(rotation=45, fontsize=10)
 plt.yticks(fontsize=10)
-plt.show()
+st.plot()
+
 
 plt.figure(figsize=(10, 6))
 sns.barplot(x='season', y='cnt', data=hour_df, color="#72BCD4")
@@ -135,7 +137,8 @@ plt.title('Rata-rata Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Rata-rata Jumlah Penyewaan Sepeda', fontsize=14)
 plt.xticks([0, 1, 2, 3], ['Musim Dingin', 'Musim Semi', 'Musim Panas', 'Musim Gugur'])
-plt.show()
+st.plot()
+
 
 """bagaimana pengaruh cuaca terhadap jumlah penyewaan sepeda"""
 
@@ -152,4 +155,4 @@ plt.xlabel("Kondisi Cuaca", fontsize=12)
 plt.ylabel("Rata-rata Penyewaan Sepeda", fontsize=12)
 plt.xticks(rotation=30, fontsize=10)
 plt.yticks(fontsize=10)
-plt.show()
+st.plot()

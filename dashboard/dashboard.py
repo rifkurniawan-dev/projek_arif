@@ -51,25 +51,25 @@ if data is not None:
 
         def create_daily_rentals_df(df):
             daily_rentals_df = df.resample(rule='D', on='dteday_x').agg({
-                "instant": "nunique",
-                "cnt_x": "sum"
+                'instant': 'nunique',
+                'cnt_x': 'sum'
             }).reset_index()
 
             daily_rentals_df.rename(columns={
-                "instant": "rental_count",
-                "cnt_x": "revenue"
+                'instant': 'rental_count',
+                'cnt_x': 'revenue'
             }, inplace=True)
 
             return daily_rentals_df
 
         def create_byseason_df(df):
-            byseason_df = df.groupby(by="season_x").instant.nunique().reset_index()
-            byseason_df.rename(columns={"instant": "rental_count"}, inplace=True)
+            byseason_df = df.groupby(by='season_x').instant.nunique().reset_index()
+            byseason_df.rename(columns={'instant': 'rental_count'}, inplace=True)
             return byseason_df
 
         def create_byweather_df(df):
-            byweather_df = df.groupby(by="weathersit_x").instant.nunique().reset_index()
-            byweather_df.rename(columns={"instant": "rental_count"}, inplace=True)
+            byweather_df = df.groupby(by='weathersit_x').instant.nunique().reset_index()
+            byweather_df.rename(columns={'instant': 'rental_count'}, inplace=True)
             return byweather_df
 
         daily_rentals_df = create_daily_rentals_df(filtered_data)
@@ -82,25 +82,24 @@ if data is not None:
 
         with col1:
             total_rentals = daily_rentals_df['rental_count'].sum()
-            st.metric("Total Penyewaan", value=total_rentals)
+            st.metric('Total Penyewaan', value=total_rentals)
 
         with col2:
-            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), "USD", locale='en_US')
-            st.metric("Total Pendapatan", value=total_revenue)
+            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
+            st.metric('Total Pendapatan', value=total_revenue)
 
         # Grafik Penyewaan Harian
-       plt.figure(figsize=(10, 5))
-        sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color="blue")
-        plt.title("Jumlah Penyewaan Sepeda Harian (2011-2012)", fontsize=20)
-        plt.xlabel("Tanggal", fontsize=12)
-        plt.ylabel("Jumlah Penyewaan", fontsize=12)
+        plt.figure(figsize=(10, 5))
+        sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color='blue')
+        plt.title('Jumlah Penyewaan Sepeda Harian (2011-2012)', fontsize=20)
+        plt.xlabel('Tanggal', fontsize=12)
+        plt.ylabel('Jumlah Penyewaan', fontsize=12)
         plt.xticks(rotation=45)
         st.pyplot(plt)
 
-
         # Grafik Penyewaan Berdasarkan Musim
         plt.figure(figsize=(10, 6))
-        sns.barplot(x='season_x', y='rental_count', data=byseason_df, palette="Blues")
+        sns.barplot(x='season_x', y='rental_count', data=byseason_df, palette='Blues')
         plt.title('Rata-rata Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
         plt.xlabel('Musim', fontsize=14)
         plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
@@ -109,7 +108,7 @@ if data is not None:
 
         # Grafik Pengaruh Cuaca terhadap Penyewaan
         plt.figure(figsize=(10, 6))
-        sns.barplot(x='weathersit_x', y='rental_count', data=byweather_df, palette="Blues")
+        sns.barplot(x='weathersit_x', y='rental_count', data=byweather_df, palette='Blues')
         plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
         plt.xlabel('Cuaca', fontsize=14)
         plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
@@ -117,7 +116,7 @@ if data is not None:
         st.pyplot(plt)
 
     except Exception as e:
-        st.error(f"Terjadi kesalahan dalam pemrosesan data: {e}")
+        st.error(f'Terjadi kesalahan dalam pemrosesan data: {e}')
 
 else:
-    st.error("Data gagal dimuat. Pastikan file day.csv dan hour.csv tersedia di folder data.")
+    st.error('Data gagal dimuat. Pastikan file day.csv dan hour.csv tersedia di folder data.')

@@ -140,27 +140,22 @@ with col1:
         byseason_df["season_label"] = byseason_df["season_x"].map(season_mapping)
         
         # Membuat plot untuk empat perbandingan dalam satu diagram
-        plt.figure(figsize=(14, 8))
-        
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 1], color="#90CAF9", label='Musim Dingin')
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 2], color="#FFEB3B", label='Musim Semi')
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 3], color="#F44336", label='Musim Panas')
-        sns.barplot(x='season_label', y='rental_count', data=byseason_df[byseason_df['season_x'] == 4], color="#8BC34A", label='Musim Gugur')
-
-        plt.title('Perbandingan Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='season', y='cnt', data=hour_df, color="#72BCD4")
+        plt.title('Rata-rata Jumlah Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
         plt.xlabel('Musim', fontsize=14)
-        plt.ylabel('Jumlah Penyewaan', fontsize=14)
-        plt.xticks(rotation=45)
-        plt.legend(title="Musim", loc="upper right")
+        plt.ylabel('Rata-rata Jumlah Penyewaan Sepeda', fontsize=14)
+        plt.xticks([0, 1, 2, 3], ['Musim Dingin', 'Musim Semi', 'Musim Panas', 'Musim Gugur'])
         st.pyplot(plt.gcf())  # Menampilkan plot di Streamlit
     else:
         st.warning("Data untuk penyewaan berdasarkan musim tidak tersedia.")
 
 with col2:
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x="weathersit_x", y="rental_count", data=byweather_df, palette="Blues", ax=ax)
-    ax.set_title("Jumlah Penyewaan Berdasarkan Cuaca", fontsize=16)
-    ax.set_xlabel("Cuaca", fontsize=12)
-    ax.set_ylabel("Jumlah Penyewaan", fontsize=12)
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+    plt.figure(figsize=(10, 6))
+sns.barplot(x='weathersit_x', y='cnt_x', data=hour_day_df, hue='weathersit_x', palette="Blues", dodge=False, legend=False)
+plt.title("Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda", fontsize=20)
+plt.xlabel("Kondisi Cuaca", fontsize=12)
+plt.ylabel("Rata-rata Penyewaan Sepeda", fontsize=12)
+plt.xticks(rotation=30, fontsize=10)
+plt.yticks(fontsize=10)
+st.pyplot(fig)

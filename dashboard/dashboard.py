@@ -12,7 +12,7 @@ dashboard = pd.read_csv("dashboard/hour_day.csv")
 
 # Konversi kolom tanggal ke tipe datetime
 datetime_columns = ["dteday"]
-hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+hour_day_df["dteday_x"] = pd.to_datetime(dashboard/hour_day_df["dteday_x"])
 
 # Mengurutkan dan mereset index berdasarkan tanggal
 hour_day_df.sort_values(by="dteday", inplace=True)

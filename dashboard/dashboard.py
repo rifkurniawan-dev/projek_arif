@@ -73,13 +73,13 @@ if data is not None:
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
         # Grafik Pengaruh Cuaca terhadap Penyewaan
-        plt.figure(figsize=(10, 6))
-        sns.barplot(x='weather_category', y='rental_count', data=byweather_df, palette='Blues')
-        plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
-        plt.xlabel('Cuaca', fontsize=14)
-        plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
+        hour_df['weathersit'] = hour_df['weathersit'].map(weather_mapping)
+        plt.figure(figsize=(12, 6))
+        sns.boxplot(x='weathersit', y='cnt', data=hour_df)
+        plt.title('pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
+        plt.xlabel('Kondisi Cuaca (weathersit)')
+        plt.ylabel('Jumlah Penyewaan Sepeda')
         st.pyplot(plt)
-
     except Exception as e:
         st.error(f'Terjadi kesalahan dalam pemrosesan data: {e}')
 

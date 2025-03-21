@@ -58,8 +58,6 @@ if data is not None:
 
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
-    col1, col2 = st.columns(2)
-
         with col1:
             total_rentals = daily_rentals_df['rental_count'].sum()
             st.metric('Total Penyewaan', value=total_rentals)

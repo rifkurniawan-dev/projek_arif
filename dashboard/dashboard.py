@@ -2,20 +2,28 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import streamlit as st  # Diperbaiki, harus menggunakan alias 'st'
+import streamlit as st  # Menggunakan alias 'st'
 import os
 
 sns.set(style='darkgrid')
 
 # Load data
-dashboard = pd.read_csv("dashboard/hour_day.csv")
+file_path = "dashboard/hour_day.csv"
+if os.path.exists(file_path):
+    hour_day_df = pd.read_csv(file_path)
+else:
+    st.error(f"File '{file_path}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
+    st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
-datetime_columns = ["dteday"]
-hour_day_df["dteday_x"] = pd.to_datetime(dashboard/hour_day_df["dteday_x"])
+if 'dteday_x' in hour_day_df.columns:
+    hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+else:
+    st.error("Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
+    st.stop()
 
 # Mengurutkan dan mereset index berdasarkan tanggal
-hour_day_df.sort_values(by="dteday", inplace=True)
+hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
 # Fungsi untuk membuat seasonal influence
@@ -29,8 +37,8 @@ def create_weather_influence(df):
     return weather_influence
 
 # Filter rentang tanggal dari sidebar
-min_date = hour_day_df["dteday"].min()
-max_date = hour_day_df["dteday"].max()
+min_date = hour_day_df["dteday_x"].min()
+max_date = hour_day_df["dteday_x"].max()
 
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)
@@ -44,8 +52,8 @@ with st.sidebar:
     )
 
 # Filter data sesuai dengan rentang tanggal yang dipilih
-main_df = hour_day_df[(hour_day_df["dteday"] >= pd.to_datetime(start_date)) & 
-                      (hour_day_df["dteday"] <= pd.to_datetime(end_date))]
+main_df = hour_day_df[(hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) & 
+                      (hour_day_df["dteday_x"] <= pd.to_datetime(end_date))]
 
 # Menyiapkan data visualisasi
 seasonal_influence = create_seasonal_influence(main_df)
@@ -58,3 +66,4 @@ st.dataframe(seasonal_influence)
 
 st.subheader("Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda")
 st.dataframe(weather_influence)
+v

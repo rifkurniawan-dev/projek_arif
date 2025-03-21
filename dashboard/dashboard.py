@@ -12,14 +12,14 @@ file_path = "dashboard/hour_day.csv"
 if os.path.exists(file_path):
     hour_day_df = pd.read_csv(file_path)
 else:
-    st.error(f"File '{file_path}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
+    st.error(f"❌ File '{file_path}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
 if 'dteday_x' in hour_day_df.columns:
     hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
 else:
-    st.error("Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
+    st.error("❌ Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
     st.stop()
 
 # Mengurutkan dan mereset index berdasarkan tanggal
@@ -28,13 +28,21 @@ hour_day_df.reset_index(drop=True, inplace=True)
 
 # Fungsi untuk membuat seasonal influence
 def create_seasonal_influence(df):
-    seasonal_influence = df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-    return seasonal_influence
+    if 'season_x' in df.columns and 'cnt_x' in df.columns:
+        seasonal_influence = df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+        return seasonal_influence
+    else:
+        st.warning("Kolom 'season_x' atau 'cnt_x' tidak ditemukan dalam DataFrame.")
+        return pd.DataFrame()
 
 # Fungsi untuk membuat weather influence
 def create_weather_influence(df):
-    weather_influence = df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-    return weather_influence
+    if 'weathersit_x' in df.columns and 'cnt_x' in df.columns:
+        weather_influence = df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+        return weather_influence
+    else:
+        st.warning("Kolom 'weathersit_x' atau 'cnt_x' tidak ditemukan dalam DataFrame.")
+        return pd.DataFrame()
 
 # Filter rentang tanggal dari sidebar
 min_date = hour_day_df["dteday_x"].min()
@@ -59,8 +67,8 @@ main_df = hour_day_df[(hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) &
 seasonal_influence = create_seasonal_influence(main_df)
 weather_influence = create_weather_influence(main_df)
 
-st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
-st.subheader('Daily Hour_day')
+st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
+st.subheader('Analisis Harian Penyewaan Sepeda')
 
 # Membuat dua kolom
 col1, col2 = st.columns(2)
@@ -73,9 +81,29 @@ with col1:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
 with col2:
-    if 'revenue' in main_df.columns:
-        total_revenue = main_df['revenue'].sum()
-        st.metric('Total Pendapatan', value=f"${total_revenue:,.2f}")
-    else:
-        st.warning("Kolom 'revenue' tidak ditemukan dalam main_df.")
- 
+    # Menampilkan pesan jika kolom 'revenue' tidak ditemukan
+    st.warning("Kolom 'revenue' tidak ditemukan dalam main_df. Pastikan dataset sudah diolah dengan benar.")
+
+# Menampilkan pengaruh musim terhadap penyewaan sepeda
+st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
+if not seasonal_influence.empty:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='season_x', y='cnt_x', data=seasonal_influence, palette="Blues", ax=ax)
+    ax.set_title('Pengaruh Musim Terhadap Penyewaan Sepeda')
+    ax.set_xlabel('Musim')
+    ax.set_ylabel('Total Penyewaan Sepeda')
+    st.pyplot(fig)
+else:
+    st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")
+
+# Menampilkan pengaruh cuaca terhadap penyewaan sepeda
+st.subheader('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
+if not weather_influence.empty:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='weathersit_x', y='cnt_x', data=weather_influence, palette="Oranges", ax=ax)
+    ax.set_title('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
+    ax.set_xlabel('Cuaca')
+    ax.set_ylabel('Total Penyewaan Sepeda')
+    st.pyplot(fig)
+else:
+    st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")

@@ -24,6 +24,7 @@ def load_data():
         st.error(f"An error occurred while loading the data: {e}")
         return None
 
+
 data = load_data()
 
 if data is not None:
@@ -35,6 +36,9 @@ if data is not None:
 
         min_date = data['dteday_x'].min().date()
         max_date = data['dteday_x'].max().date()
+
+        musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
+        data['Musim'] = data['season_x'].map(musim_mapping)
 
         with st.sidebar:
             st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
@@ -49,81 +53,32 @@ if data is not None:
         end_date = pd.to_datetime(end_date)
         filtered_data = data[(data['dteday_x'] >= start_date) & (data['dteday_x'] <= end_date)]
 
-        def create_daily_rentals_df(df):
-            daily_rentals_df = df.resample(rule='D', on='dteday_x').agg({
-                'instant': 'nunique',
-                'cnt_x': 'sum'
-            }).reset_index()
-
-            daily_rentals_df.rename(columns={
-                'instant': 'rental_count',
-                'cnt_x': 'revenue'
-            }, inplace=True)
-
-            return daily_rentals_df
-
-        def create_byseason_df(df):
-            byseason_df = df.groupby(by='season_x').instant.nunique().reset_index()
-            byseason_df.rename(columns={'instant': 'rental_count'}, inplace=True)
-            return byseason_df
-
         def create_byweather_df(df):
-            byweather_df = df.groupby(by='weathersit_x').instant.nunique().reset_index()
+            weather_mapping = {1: 'Cerah/Sedikit Berawan', 2: 'Berkabut/Berawan', 3: 'Hujan Ringan/Snow Ringan', 4: 'Hujan Deras/Snow Lebat'}
+            df['weather_category'] = df['weathersit_x'].map(weather_mapping)
+            byweather_df = df.groupby('weather_category').instant.nunique().reset_index()
             byweather_df.rename(columns={'instant': 'rental_count'}, inplace=True)
             return byweather_df
 
-        daily_rentals_df = create_daily_rentals_df(filtered_data)
-        byseason_df = create_byseason_df(filtered_data)
         byweather_df = create_byweather_df(filtered_data)
 
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
-        col1, col2 = st.columns(2)
-
-        with col1:
-            total_rentals = daily_rentals_df['rental_count'].sum()
-            st.metric('Total Penyewaan', value=total_rentals)
-
-        with col2:
-            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
-            st.metric('Total Pendapatan', value=total_revenue)
-
-        # Grafik Penyewaan Harian
-        plt.figure(figsize=(10, 5))
-        sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color='blue')
-        plt.title('Jumlah Penyewaan Sepeda Harian (2011-2012)', fontsize=20)
-        plt.xlabel('Tanggal', fontsize=12)
-        plt.ylabel('Jumlah Penyewaan', fontsize=12)
-        plt.xticks(rotation=45)
-        st.pyplot(plt)
-
-        # Grafik Penyewaan Berdasarkan Musim
-        seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-        seasonal_influence.head(10)
-        
-        musim_mapping = {
-            1: 'Musim Dingin',
-            2: 'Musim Semi',
-            3: 'Musim Panas',
-            4: 'Musim Gugur'
-        }
-        seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
-        
-        plt.figure(figsize=(10, 6))
-        sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, hue='Musim', dodge=False, palette="Blues")
-        plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
-        plt.xlabel('Musim', fontsize=14)
-        plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
-        plt.legend([], [], frameon=False)
-        st.pyplot(plt)
-
         # Grafik Pengaruh Cuaca terhadap Penyewaan
         plt.figure(figsize=(10, 6))
-        sns.barplot(x='weathersit_x', y='rental_count', data=byweather_df, palette='Blues')
+        sns.barplot(x='weather_category', y='rental_count', data=byweather_df, palette='Blues')
         plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
         plt.xlabel('Cuaca', fontsize=14)
         plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
-        plt.xticks([0, 1, 2, 3], ['Cerah', 'Berawan', 'Hujan Ringan', 'Hujan Lebat'])
+        st.pyplot(plt)
+
+        # Grafik Pengaruh Musim terhadap Penyewaan
+        seasonal_influence = filtered_data.groupby('Musim')['cnt_x'].sum().reset_index().sort_values(by='cnt_x', ascending=False)
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette='cool')
+        plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
+        plt.xlabel('Musim', fontsize=14)
+        plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
         st.pyplot(plt)
 
     except Exception as e:

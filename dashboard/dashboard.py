@@ -62,14 +62,20 @@ weather_influence = create_weather_influence(main_df)
 st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 st.subheader('Daily Hour_day')
 
+# Membuat dua kolom
 col1, col2 = st.columns(2)
 
 with col1:
-    total_orders = daily_seasonal_influence._count.sum()
-    st.metric("Total orders", value=total_orders)
+    if 'cnt_x' in main_df.columns:
+        total_orders = main_df['cnt_x'].sum() 
+        st.metric("Total Orders", value=total_orders)
+    else:
+        st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
 with col2:
-   total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
-            st.metric('Total Pendapatan', value=total_revenue)
-
+    if 'revenue' in main_df.columns:
+        total_revenue = main_df['revenue'].sum()
+        st.metric('Total Pendapatan', value=f"${total_revenue:,.2f}")
+    else:
+        st.warning("Kolom 'revenue' tidak ditemukan dalam main_df.")
  

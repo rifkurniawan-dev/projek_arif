@@ -29,8 +29,8 @@ def create_weather_influence(df):
     return weather_influence
 
 # Filter rentang tanggal dari sidebar
-min_date = hour_day_df["dteday_x"].min()
-max_date = hour_day_df["dteday_X"].max()
+min_date = hour_day_df["dteday"].min()
+max_date = hour_day_df["dteday"].max()
 
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)

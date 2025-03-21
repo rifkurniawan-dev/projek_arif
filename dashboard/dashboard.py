@@ -4,7 +4,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit
 import os
-sns.set(style='darkgrid')
+sns.set(style='darink')
+def create_daily_rentals_df(df):
+            daily_rentals_df = df.resample(rule='D', on='dteday_x').agg({
+                'instant': 'nunique',
+                'cnt_x': 'sum'
+            }).reset_index()
+
+            daily_rentals_df.rename(columns={
+                'instant': 'rental_count',
+                'cnt_x': 'revenue'
+            }, inplace=True)
+
+            return daily_rentals_df
 
 # Load Data
 day_df = pd.read_csv("day.csv")

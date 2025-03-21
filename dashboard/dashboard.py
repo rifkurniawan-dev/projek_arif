@@ -52,6 +52,15 @@ if data is not None:
         end_date = pd.to_datetime(end_date)
         filtered_data = data[(data['dteday_x'] >= start_date) & (data['dteday_x'] <= end_date)]
 
+        # Grafik Pengaruh Musim terhadap Penyewaan
+        seasonal_influence = filtered_data.groupby('Musim')['cnt_x'].sum().reset_index().sort_values(by='cnt_x', ascending=False)
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette='cool')
+        plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
+        plt.xlabel('Musim', fontsize=14)
+        plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
+        st.pyplot(plt)
+
         def create_byweather_df(df):
             weather_mapping = {1: 'Cerah/Sedikit Berawan', 2: 'Berkabut/Berawan', 3: 'Hujan Ringan/Snow Ringan', 4: 'Hujan Deras/Snow Lebat'}
             df['weather_category'] = df['weathersit_x'].map(weather_mapping)
@@ -71,21 +80,6 @@ if data is not None:
         plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
         st.pyplot(plt)
 
-        # Grafik Pengaruh Musim terhadap Penyewaan
-       weather_influence = hour_day_df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-weather_mapping = {
-    1: 'Cerah/Sedikit Berawan',
-    2: 'Berkabut/Berawan',
-    3: 'Hujan Ringan/Snow Ringan',
-    4: 'Hujan Deras/Snow Lebat'
-}
-hour_df['weathersit'] = hour_df['weathersit'].map(weather_mapping)
-plt.figure(figsize=(12, 6))
-sns.boxplot(x='weathersit', y='cnt', data=hour_df)
-plt.title('pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
-plt.xlabel('Kondisi Cuaca (weathersit)')
-plt.ylabel('Jumlah Penyewaan Sepeda')
-st.pyplot(plt)
     except Exception as e:
         st.error(f'Terjadi kesalahan dalam pemrosesan data: {e}')
 

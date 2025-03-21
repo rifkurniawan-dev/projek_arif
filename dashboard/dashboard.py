@@ -8,7 +8,7 @@ import os
 sns.set(style='darkgrid')
 
 # Load data
-hour_day_df = pd.read_csv("dashboard/hour_day.csv")
+dashboard = pd.read_csv("dashboard/hour_day.csv")
 
 # Konversi kolom tanggal ke tipe datetime
 datetime_columns = ["dteday"]

@@ -6,6 +6,7 @@ import streamlit as st
 import os
 from babel.numbers import format_currency
 
+
 def load_data():
     day_df = 'data/day.csv'
     hour_df = 'data/hour.csv'
@@ -48,15 +49,36 @@ if data is not None:
         end_date = pd.to_datetime(end_date)
         filtered_data = data[(data['dteday_x'] >= start_date) & (data['dteday_x'] <= end_date)]
 
-        weather_mapping = {
-            1: 'Cerah/Sedikit Berawan',
-            2: 'Berkabut/Berawan',
-            3: 'Hujan Ringan/Snow Ringan',
-            4: 'Hujan Deras/Snow Lebat'
-        }
-        filtered_data['weathersit_x'] = filtered_data['weathersit_x'].map(weather_mapping)
+        def create_daily_rentals_df(df):
+            daily_rentals_df = df.resample(rule='D', on='dteday_x').agg({
+                'instant': 'nunique',
+                'cnt_x': 'sum'
+            }).reset_index()
+
+            daily_rentals_df.rename(columns={
+                'instant': 'rental_count',
+                'cnt_x': 'revenue'
+            }, inplace=True)
+
+            return daily_rentals_df
+
+        def create_byseason_df(df):
+            byseason_df = df.groupby(by='season_x').instant.nunique().reset_index()
+            byseason_df.rename(columns={'instant': 'rental_count'}, inplace=True)
+            return byseason_df
+
+        def create_byweather_df(df):
+            byweather_df = df.groupby(by='weathersit_x').instant.nunique().reset_index()
+            byweather_df.rename(columns={'instant': 'rental_count'}, inplace=True)
+            return byweather_df
+
+        daily_rentals_df = create_daily_rentals_df(filtered_data)
+        byseason_df = create_byseason_df(filtered_data)
+        byweather_df = create_byweather_df(filtered_data)
 
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
+
+        col1, col2 = st.columns(2)
 
         with col1:
             total_rentals = daily_rentals_df['rental_count'].sum()
@@ -66,11 +88,33 @@ if data is not None:
             total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
             st.metric('Total Pendapatan', value=total_revenue)
 
-        plt.figure(figsize=(12, 6))
-        sns.boxplot(x='weathersit_x', y='cnt_x', data=filtered_data)
-        plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
-        plt.xlabel('Kondisi Cuaca')
-        plt.ylabel('Jumlah Penyewaan Sepeda')
+        # Grafik Penyewaan Harian
+        plt.figure(figsize=(10, 5))
+        sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color='blue')
+        plt.title('Jumlah Penyewaan Sepeda Harian (2011-2012)', fontsize=20)
+        plt.xlabel('Tanggal', fontsize=12)
+        plt.ylabel('Jumlah Penyewaan', fontsize=12)
+        plt.xticks(rotation=45)
+        st.pyplot(plt)
+
+        # Grafik Penyewaan Berdasarkan Musim
+        musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
+        byseason_df['Musim'] = byseason_df['season_x'].map(musim_mapping)
+
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='Musim', y='rental_count', data=byseason_df, palette='Blues')
+        plt.title('Rata-rata Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
+        plt.xlabel('Musim', fontsize=14)
+        plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
+        st.pyplot(plt)
+
+        # Grafik Pengaruh Cuaca terhadap Penyewaan
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='weathersit_x', y='rental_count', data=byweather_df, palette='Blues')
+        plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
+        plt.xlabel('Cuaca', fontsize=14)
+        plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
+        plt.xticks([0, 1, 2, 3], ['Cerah', 'Berawan', 'Hujan Ringan', 'Hujan Lebat'])
         st.pyplot(plt)
 
     except Exception as e:
@@ -78,4 +122,3 @@ if data is not None:
 
 else:
     st.error('Data gagal dimuat. Pastikan file day.csv dan hour.csv tersedia di folder data.')
-

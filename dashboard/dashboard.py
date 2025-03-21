@@ -59,14 +59,17 @@ main_df = hour_day_df[(hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) &
 seasonal_influence = create_seasonal_influence(main_df)
 weather_influence = create_weather_influence(main_df)
 
-  st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
+st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
+st.subheader('Daily Hour_day')
 
-        col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
-        with col1:
-            total_rentals = daily_rentals_df['day_count'].sum()
-            st.metric('Total Penyewaan', value=total_rentals)
+with col1:
+    total_orders = daily_seasonal_influence._count.sum()
+    st.metric("Total orders", value=total_orders)
 
-        with col2:
-            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
+with col2:
+   total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
             st.metric('Total Pendapatan', value=total_revenue)
+
+ 

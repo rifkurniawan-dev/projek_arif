@@ -63,7 +63,26 @@ if data is not None:
         byweather_df = create_byweather_df(filtered_data)
 
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
+        st.subheader('Daily')
+ 
+col1, col2 = st.columns(2)
 
+        with col1:
+            total_rentals = daily_rentals_df['rental_count'].sum()
+            st.metric('Total Penyewaan', value=total_rentals)
+
+        with col2:
+            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
+            st.metric('Total Pendapatan', value=total_revenue)
+
+        # Grafik Penyewaan Harian
+        plt.figure(figsize=(10, 5))
+        sns.lineplot(x='dteday_x', y='rental_count', data=daily_rentals_df, color='blue')
+        plt.title('Jumlah Penyewaan Sepeda Harian (2011-2012)', fontsize=20)
+        plt.xlabel('Tanggal', fontsize=12)
+        plt.ylabel('Jumlah Penyewaan', fontsize=12)
+        plt.xticks(rotation=45)
+        st.pyplot(plt)
         # Grafik Pengaruh Cuaca terhadap Penyewaan
         plt.figure(figsize=(10, 6))
         sns.barplot(x='weather_category', y='rental_count', data=byweather_df, palette='Blues')

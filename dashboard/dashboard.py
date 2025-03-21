@@ -98,14 +98,23 @@ if data is not None:
         st.pyplot(plt)
 
         # Grafik Penyewaan Berdasarkan Musim
-        musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
-        byseason_df['Musim'] = byseason_df['season_x'].map(musim_mapping)
-
+        seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+        seasonal_influence.head(10)
+        
+        musim_mapping = {
+            1: 'Musim Dingin',
+            2: 'Musim Semi',
+            3: 'Musim Panas',
+            4: 'Musim Gugur'
+        }
+        seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
+        
         plt.figure(figsize=(10, 6))
-        sns.barplot(x='Musim', y='rental_count', data=byseason_df, palette='Blues')
-        plt.title('Rata-rata Penyewaan Sepeda Berdasarkan Musim', fontsize=16)
+        sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, hue='Musim', dodge=False, palette="Blues")
+        plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
         plt.xlabel('Musim', fontsize=14)
-        plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
+        plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
+        plt.legend([], [], frameon=False)
         st.pyplot(plt)
 
         # Grafik Pengaruh Cuaca terhadap Penyewaan

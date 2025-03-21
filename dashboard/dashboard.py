@@ -8,36 +8,37 @@ from babel.numbers import format_currency
 
 
 def load_data():
-    day_df = 'data/day.csv'
-    hour_df = 'data/hour.csv'
+    day_df_path = 'data/day.csv'
+    hour_df_path = 'data/hour.csv'
 
     try:
-        if os.path.exists(day_df) and os.path.exists(hour_df):
-            day_df = pd.read_csv(day_df)
-            hour_df = pd.read_csv(hour_df)
-            merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
-            return merged_df
+        if os.path.exists(day_df_path) and os.path.exists(hour_df_path):
+            day_df = pd.read_csv(day_df_path)
+            hour_df = pd.read_csv(hour_df_path)
+            return day_df, hour_df
         else:
             st.error("One or both of the required files (day.csv or hour.csv) are missing.")
-            return None
+            return None, None
     except Exception as e:
         st.error(f"An error occurred while loading the data: {e}")
-        return None
+        return None, None
 
-data = load_data()
+day_df, hour_df = load_data()
 
-if data is not None:
+if day_df is not None and hour_df is not None:
     try:
-        data['dteday_x'] = pd.to_datetime(data['dteday_x'], errors='coerce')
-        data = data.dropna(subset=['dteday_x'])
-        data['hr'] = data['hr'].fillna(0).astype(int)
-        data['datetime'] = pd.to_datetime(data['dteday_x']) + pd.to_timedelta(data['hr'], unit='h')
+        merged_df = pd.merge(hour_df, day_df, how="outer", on="instant")
 
-        min_date = data['dteday_x'].min().date()
-        max_date = data['dteday_x'].max().date()
+        merged_df['dteday_x'] = pd.to_datetime(merged_df['dteday_x'], errors='coerce')
+        merged_df = merged_df.dropna(subset=['dteday_x'])
+        merged_df['hr'] = merged_df['hr'].fillna(0).astype(int)
+        merged_df['datetime'] = pd.to_datetime(merged_df['dteday_x']) + pd.to_timedelta(merged_df['hr'], unit='h')
+
+        min_date = merged_df['dteday_x'].min().date()
+        max_date = merged_df['dteday_x'].max().date()
 
         musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
-        data['Musim'] = data['season_x'].map(musim_mapping)
+        merged_df['Musim'] = merged_df['season_x'].map(musim_mapping)
 
         with st.sidebar:
             st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
@@ -50,7 +51,7 @@ if data is not None:
 
         start_date = pd.to_datetime(start_date)
         end_date = pd.to_datetime(end_date)
-        filtered_data = data[(data['dteday_x'] >= start_date) & (data['dteday_x'] <= end_date)]
+        filtered_data = merged_df[(merged_df['dteday_x'] >= start_date) & (merged_df['dteday_x'] <= end_date)]
 
         # Grafik Pengaruh Musim terhadap Penyewaan
         seasonal_influence = filtered_data.groupby('Musim')['cnt_x'].sum().reset_index().sort_values(by='cnt_x', ascending=False)
@@ -73,13 +74,13 @@ if data is not None:
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
         # Grafik Pengaruh Cuaca terhadap Penyewaan
-        hour_df['weathersit'] = hour_df['weathersit'].map(weather_mapping)
-        plt.figure(figsize=(12, 6))
-        sns.boxplot(x='weathersit', y='cnt', data=hour_df)
-        plt.title('pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
-        plt.xlabel('Kondisi Cuaca (weathersit)')
-        plt.ylabel('Jumlah Penyewaan Sepeda')
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='weather_category', y='rental_count', data=byweather_df, palette='Blues')
+        plt.title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
+        plt.xlabel('Cuaca', fontsize=14)
+        plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
         st.pyplot(plt)
+
     except Exception as e:
         st.error(f'Terjadi kesalahan dalam pemrosesan data: {e}')
 

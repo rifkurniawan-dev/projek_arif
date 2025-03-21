@@ -52,6 +52,7 @@ if day_df is not None and hour_df is not None:
         start_date = pd.to_datetime(start_date)
         end_date = pd.to_datetime(end_date)
         filtered_data = merged_df[(merged_df['dteday_x'] >= start_date) & (merged_df['dteday_x'] <= end_date)]
+          st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
         # Grafik Pengaruh Musim terhadap Penyewaan
         seasonal_influence = filtered_data.groupby('Musim')['cnt_x'].sum().reset_index().sort_values(by='cnt_x', ascending=False)
@@ -71,8 +72,7 @@ if day_df is not None and hour_df is not None:
 
         byweather_df = create_byweather_df(filtered_data)
 
-        st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
-
+    
         # Grafik Pengaruh Cuaca terhadap Penyewaan
         plt.figure(figsize=(10, 6))
         sns.barplot(x='weather_category', y='rental_count', data=byweather_df, palette='Blues')

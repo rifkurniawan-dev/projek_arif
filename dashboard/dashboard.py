@@ -12,7 +12,7 @@ dashboard = pd.read_csv("dashboard/hour_day.csv")
 
 # Konversi kolom tanggal ke tipe datetime
 datetime_columns = ["dteday"]
-hour_day_df["dteday"] = pd.to_datetime(hour_day_df["dteday"])
+hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
 
 # Mengurutkan dan mereset index berdasarkan tanggal
 hour_day_df.sort_values(by="dteday", inplace=True)
@@ -29,8 +29,8 @@ def create_weather_influence(df):
     return weather_influence
 
 # Filter rentang tanggal dari sidebar
-min_date = hour_day_df["dteday"].min()
-max_date = hour_day_df["dteday"].max()
+min_date = hour_day_df["dteday_x"].min()
+max_date = hour_day_df["dteday_X"].max()
 
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)

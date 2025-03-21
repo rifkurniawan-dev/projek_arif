@@ -5,13 +5,6 @@ import seaborn as sns
 import streamlit as st
 import os
 from babel.numbers import format_currency
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import streamlit as st
-import os
-from babel.numbers import format_currency
 
 def load_data():
     day_df = 'data/day.csv'
@@ -65,7 +58,16 @@ if data is not None:
 
         st.header('Dashboard Analisis Penyewaan Sepeda :sparkles:')
 
-        # Pengaruh Cuaca terhadap Penyewaan
+    col1, col2 = st.columns(2)
+
+        with col1:
+            total_rentals = daily_rentals_df['rental_count'].sum()
+            st.metric('Total Penyewaan', value=total_rentals)
+
+        with col2:
+            total_revenue = format_currency(daily_rentals_df['revenue'].sum(), 'USD', locale='en_US')
+            st.metric('Total Pendapatan', value=total_revenue)
+
         plt.figure(figsize=(12, 6))
         sns.boxplot(x='weathersit_x', y='cnt_x', data=filtered_data)
         plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')

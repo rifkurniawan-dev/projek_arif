@@ -38,12 +38,12 @@ hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
 # Mapping musim
-musim_mapping = {
+main_df.loc[:, 'Musim'] = main_df['season_x'].map({
     1: 'Musim Dingin',
     2: 'Musim Semi',
     3: 'Musim Panas',
     4: 'Musim Gugur'
-}
+})
 hour_day_df['Musim'] = hour_day_df['season_x'].map(musim_mapping)
 
 
@@ -97,13 +97,31 @@ st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
 # Kelompokkan data berdasarkan musim
 seasonal_influence = hour_day_df.groupby('season_x')[['cnt_x']].sum().sort_values(by='cnt_x', ascending=False).reset_index()
-plt.figure(figsize=(10, 6))
-sns.barplot(x='Musim',y='Total Penyewaan Sepeda', data=seasonal_influence,errorbar=None )
+seasonal_influence.columns = ['Musim', 'Total Penyewaan Sepeda']
+pmusim_mapping = {
+    1: 'Musim Dingin',
+    2: 'Musim Semi',
+    3: 'Musim Panas',
+    4: 'Musim Gugur'
+}
+seasonal_influence['Musim'] = seasonal_influence['Musim'].map(musim_mapping)
+
+# Membuat grafik di Streamlit
+st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
+
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(
+    x='Musim',
+    y='Total Penyewaan Sepeda',
+    data=seasonal_influence,
+    plt=plt,
+    errorbar=None,
+    palette="Blues"
+)
 plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
-st.pyplot(plt)
-plt.clf() 
+st.pyplot(fig)
 
 # Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')

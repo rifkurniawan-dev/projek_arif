@@ -42,10 +42,6 @@ with st.sidebar:
         value=[min_date, max_date]
     )
 
-    # Dropdown filter
-    selected_season = st.selectbox('Pilih Musim', hour_day_df['season_x'].unique())
-    selected_weather = st.selectbox('Pilih Cuaca', hour_day_df['weathersit_x'].unique())
-
 # Filter data sesuai dengan rentang tanggal yang dipilih
 main_df = hour_day_df[
     (hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) & 

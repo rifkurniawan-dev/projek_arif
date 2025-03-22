@@ -76,7 +76,6 @@ with col2:
 # Grafik Pengaruh Musim Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-main_df['Musim'] = main_df['season_x'].map({ = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
 main_df['Musim'] = main_df['season_x'].map(musim_mapping)({ 
     1: 'Musim Dingin', 
     2: 'Musim Semi', 

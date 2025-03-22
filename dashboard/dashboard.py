@@ -68,7 +68,7 @@ main_df = hour_day_df[
     (hour_day_df["dteday_x"] <= pd.to_datetime(end_date))
 ].copy()
 
-# Menambahkan kolom Cuaca dengan aman
+# Menambahkan kolom Cuaca
 main_df.loc[:, 'Cuaca'] = main_df['weathersit_x'].map({
     1: 'Cerah/Sedikit Berawan',
     2: 'Berkabut/Berawan',
@@ -83,16 +83,20 @@ col1, col2 = st.columns(2)
 with col1:
     if 'cnt_x' in main_df.columns:
         total_penyewa = main_df['cnt_x'].sum()
-        st.metric("Total Penyewa", value=total_penyewa)
+        st.metric("Total Penyewa", value=int(total_penyewa))
 with col2:
     if 'cnt_x' in main_df.columns:
-        total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
+        try:
+            total_pendapatan = format_currency(float(total_penyewa), 'USD', locale='en_US')
+        except:
+            total_pendapatan = "Tidak Tersedia"
         st.metric('Total Pendapatan', value=total_pendapatan)
 
 # Grafik Pengaruh Musim Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
-seasonal_influence = hour_day_df.groupby('Musim')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+# Kelompokkan data berdasarkan musim
+seasonal_influence = main_df.groupby('Musim')['cnt_x'].sum().sort_values(ascending=False).reset_index()
 
 plt.figure(figsize=(10, 6))
 sns.barplot(

@@ -51,7 +51,7 @@ main_df = hour_day_df[
 # Filter data berdasarkan pilihan user
 filtered_data = main_df[
     (main_df['season_x'] == selected_season) & 
-    (main_df['weathersit_x'] == selected_weather)
+    (main_df['weathersit_x'] == weather_influence)
 ]
 
 st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')

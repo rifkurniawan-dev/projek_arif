@@ -91,18 +91,19 @@ plt.clf()  # Membersihkan plot setelah ditampilkan
 # Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
 weather_influence = hour_day_df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-weather_mapping = {
+
+hour_day_df['Cuaca'] = hour_day_df['weathersit_x'].map({
     1: 'Cerah/Sedikit Berawan',
     2: 'Berkabut/Berawan',
     3: 'Hujan Ringan/Snow Ringan',
     4: 'Hujan Deras/Snow Lebat'
-}
-weather_influence['Cuaca'] = weather_influence['weathersit_x'].map(weather_mapping)
+})
 
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='Cuaca', y='cnt_x', data=weather_influence")
-plt.title('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
-plt.xlabel('Cuaca', fontsize=14)
-plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
+sns.boxplot(x='Cuaca', y='cnt_x', data=hour_day_df, palette="Oranges")
+plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca', fontsize=16)
+plt.xlabel('Kondisi Cuaca', fontsize=14)
+plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
+plt.clf() 
 plt.clf() 

@@ -45,7 +45,7 @@ max_date = hour_day_df["dteday_x"].max()
 
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)
-    st.title('Filter Data')
+    
     
     # Mengambil rentang tanggal dari user
     start_date, end_date = st.date_input(
@@ -107,6 +107,3 @@ plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
 plt.clf()  # Membersihkan plot setelah ditampilkan
 
-# Menampilkan data yang telah difilter
-st.subheader('Data yang Difilter Berdasarkan Pilihan Anda')
-st.write(main_df)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,16 +8,38 @@ from babel.numbers import format_currency
 
 sns.set(style='dark')
 
+# Path file CSV
 dashboard = "dashboard/hour_day.csv"
-if os.path.exists(dashboard):
-    hour_day_df = pd.read_csv(dashboard)
+
+# Fungsi untuk mengecek keberadaan file
+def check_file(path):
+    if os.path.exists(path):
+        st.write(f"📁 Direktori saat ini: {os.getcwd()}")
+        st.write(f"📂 Isi folder 'dashboard': {os.listdir('dashboard')}")
+        return True
+    else:
+        return False
+
+# Mengecek apakah file CSV ada atau tidak
+if check_file(dashboard):
+    try:
+        # Membaca file CSV
+        hour_day_df = pd.read_csv(dashboard)
+        st.success(f"✅ File '{dashboard}' berhasil dibaca!")
+    except Exception as e:
+        st.error(f"❌ Terjadi kesalahan saat membaca file CSV: {e}")
+        st.stop()
 else:
     st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
 if 'dteday_x' in hour_day_df.columns:
-    hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+    try:
+        hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+    except Exception as e:
+        st.error(f"❌ Terjadi kesalahan saat mengonversi kolom 'dteday_x' menjadi datetime: {e}")
+        st.stop()
 else:
     st.error("❌ Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
     st.stop()
@@ -25,61 +48,6 @@ else:
 hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
-# Pemetaan musim dan cuaca
-musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
-weather_mapping = {
-    1: 'Cerah/Sedikit Berawan',
-    2: 'Berkabut/Berawan',
-    3: 'Hujan Ringan/Snow Ringan',
-    4: 'Hujan Deras/Snow Lebat'
-}
-
-# Filter rentang tanggal dari sidebar
-min_date = hour_day_df["dteday_x"].min()
-max_date = hour_day_df["dteday_x"].max()
-
-with st.sidebar:
-    st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)
-    st.title('Filter Data')
-    
-    # Mengambil rentang tanggal dari user
-    start_date, end_date = st.date_input(
-        label='Rentang Waktu',
-        min_value=min_date,
-        max_value=max_date,
-        value=[min_date, max_date]
-    )
-    
-    # Pilih Musim
-    selected_season = st.selectbox(
-        'Pilih Musim',
-        options=hour_day_df['season_x'].unique(),
-        format_func=lambda x: musim_mapping.get(x, "Tidak Diketahui")
-    )
-    
-    # Pilih Cuaca
-    selected_weather = st.selectbox(
-        'Pilih Kondisi Cuaca',
-        options=hour_day_df['weathersit_x'].unique(),
-        format_func=lambda x: weather_mapping.get(x, "Tidak Diketahui")
-    )
-
-# Filter data sesuai dengan rentang tanggal yang dipilih
-main_df = hour_day_df[
-    (hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) & 
-    (hour_day_df["dteday_x"] <= pd.to_datetime(end_date))
-]
-
-# Filter data berdasarkan pilihan user
-filtered_data = main_df[
-    (main_df['season_x'] == selected_season) & 
-    (main_df['weathersit_x'] == selected_weather)
-]
-
-st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
-
-# Menampilkan metrik total penyewaan dan pendapatan
-col1, col2 = st.columns(2)
-with col1:
-    if 'cnt_x' in main_df.columns:
-        total_orders 
+# Tampilkan preview dari data yang berhasil dibaca
+st.write("📋 **Preview Data:**")
+st.dataframe(hour_day_df.head())

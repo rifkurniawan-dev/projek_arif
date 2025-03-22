@@ -44,7 +44,7 @@ musim_mapping = {
     3: 'Musim Panas',
     4: 'Musim Gugur'
 }
-seasonal_influence['Musim'] = seasonal_influence['Musim'].map(musim_mapping)
+seasonal_influence['Musim'] = hour_day_df['Musim'].map(musim_mapping)
 
 
 # Filter rentang tanggal dari sidebar

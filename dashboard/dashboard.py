@@ -15,7 +15,6 @@ if os.path.exists(dashboard):
     try:
         # Membaca file CSV
         hour_day_df = pd.read_csv(dashboard)
-        st.success(f"✅ File '{dashboard}' berhasil dibaca!")
     except Exception as e:
         st.error(f"❌ Terjadi kesalahan saat membaca file CSV: {e}")
         st.stop()

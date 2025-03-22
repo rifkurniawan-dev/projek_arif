@@ -8,11 +8,11 @@ import os
 sns.set(style='darkgrid')
 
 # Load data
-file_path = "dashboard/hour_day.csv"
-if os.path.exists(file_path):
-    hour_day_df = pd.read_csv(file_path)
+dashboard = "dashboard/hour_day.csv"
+if os.path.exists(dashboard):
+    hour_day_df = pd.read_csv(dashboard)
 else:
-    st.error(f"❌ File '{file_path}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
+    st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
@@ -68,7 +68,7 @@ seasonal_influence = create_seasonal_influence(main_df)
 weather_influence = create_weather_influence(main_df)
 
 st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
-st.subheader('Analisis Harian Penyewaan Sepeda')
+st.subheader('Pengaruh musim terhadap Penyewaan Sepeda')
 
 # Membuat dua kolom
 col1, col2 = st.columns(2)
@@ -81,9 +81,8 @@ with col1:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
 with col2:
-    # Menampilkan pesan jika kolom 'revenue' tidak ditemukan
-    st.warning("Kolom 'revenue' tidak ditemukan dalam main_df. Pastikan dataset sudah diolah dengan benar.")
-
+    total_pendapatan = format_currency(daily_seasonal_influence_df['cnt'].sum(), 'USD', locale='en_US')
+            st.metric('Total Pendapatan', value=total_pendapatan)
 # Menampilkan pengaruh musim terhadap penyewaan sepeda
 st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
 if not seasonal_influence.empty:

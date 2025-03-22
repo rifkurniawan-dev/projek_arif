@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st  # Menggunakan alias 'st'
 import os
+from babel.numbers import format_currency  # ✅ Mengimpor format_currency
 
 sns.set(style='darkgrid')
 
@@ -68,7 +69,7 @@ seasonal_influence = create_seasonal_influence(main_df)
 weather_influence = create_weather_influence(main_df)
 
 st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
-st.subheader('Pengaruh musim terhadap Penyewaan Sepeda')
+st.subheader('Pengaruh Musim terhadap Penyewaan Sepeda')
 
 # Membuat dua kolom
 col1, col2 = st.columns(2)
@@ -81,8 +82,12 @@ with col1:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
 with col2:
-    total_pendapatan = format_currency(daily_seasonal_influence_df['dteday_x'].sum(), 'USD', locale='en_US')
-            st.metric('Total Pendapatan', value=total_pendapatan)
+    if 'cnt_x' in main_df.columns:
+        total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
+        st.metric('Total Pendapatan', value=total_pendapatan)
+    else:
+        st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
+
 # Menampilkan pengaruh musim terhadap penyewaan sepeda
 st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
 if not seasonal_influence.empty:

@@ -38,6 +38,15 @@ else:
 hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
+# Mapping musim
+musim_mapping = {
+    1: 'Musim Dingin',
+    2: 'Musim Semi',
+    3: 'Musim Panas',
+    4: 'Musim Gugur'
+}
+hour_day_df['Musim'] = hour_day_df['season_x'].map(musim_mapping)
+
 # Filter rentang tanggal dari sidebar
 min_date = hour_day_df["dteday_x"].min()
 max_date = hour_day_df["dteday_x"].max()
@@ -57,7 +66,15 @@ with st.sidebar:
 main_df = hour_day_df[
     (hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) & 
     (hour_day_df["dteday_x"] <= pd.to_datetime(end_date))
-]
+].copy()
+
+# Menambahkan kolom Cuaca dengan aman
+main_df.loc[:, 'Cuaca'] = main_df['weathersit_x'].map({
+    1: 'Cerah/Sedikit Berawan',
+    2: 'Berkabut/Berawan',
+    3: 'Hujan Ringan/Snow Ringan',
+    4: 'Hujan Deras/Snow Lebat'
+})
 
 st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
 
@@ -72,41 +89,26 @@ with col2:
         total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
         st.metric('Total Pendapatan', value=total_pendapatan)
 
-# Grafik Pengaruh Musim Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
+# Grafik Pengaruh Musim Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
-# Mapping musim dilakukan di main_df, bukan di seasonal_influence
-seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-musim_mapping = {
-    1: 'Musim Dingin',
-    2: 'Musim Semi',
-    3: 'Musim Panas',
-    4: 'Musim Gugur'
-}
-main_df['Musim'] = main_df['season_x'].map(musim_mapping)
+seasonal_influence = hour_day_df.groupby('Musim')['cnt_x'].sum().sort_values(ascending=False).reset_index()
 
 plt.figure(figsize=(10, 6))
 sns.barplot(
     x='Musim', 
     y='cnt_x', 
-    data=seasonal_influence, 
-    hue='Musim',  # Tambahkan hue
-    palette="Blues", 
-    legend=False  # Nonaktifkan legenda
+    data=seasonal_influence,
+    palette="Blues"
 )
 plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
 plt.clf() 
-# Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
+
+# Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
-main_df['Cuaca'] = main_df['weathersit_x'].map({
-    1: 'Cerah/Sedikit Berawan',
-    2: 'Berkabut/Berawan',
-    3: 'Hujan Ringan/Snow Ringan',
-    4: 'Hujan Deras/Snow Lebat'
-})
 
 plt.figure(figsize=(12, 6))
 sns.boxplot(x='Cuaca', y='cnt_x', data=main_df, palette="Oranges")

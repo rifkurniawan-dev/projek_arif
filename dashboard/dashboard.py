@@ -77,27 +77,26 @@ with col2:
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
 # Mapping musim dilakukan di main_df, bukan di seasonal_influence
-seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-musim_mapping = {
+st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
+
+# Mapping musim dilakukan di main_df, bukan di seasonal_influence
+main_df['Musim'] = main_df['season_x'].map({
     1: 'Musim Dingin',
     2: 'Musim Semi',
     3: 'Musim Panas',
     4: 'Musim Gugur'
-}
-seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
+})
+
+# Mengelompokkan data berdasarkan musim dari main_df yang sudah difilter oleh rentang tanggal
+seasonal_influence = main_df.groupby('Musim')['cnt_x'].sum().sort_values(ascending=False).reset_index()
 
 plt.figure(figsize=(10, 6))
-sns.barplot(
-    x='Musim', 
-    y='cnt_x', 
-    data=seasonal_influence, 
-    palette="Blues"
-)
+sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette="Blues")
 plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
-plt.clf()
+plt.clf() 
 # Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
 main_df['Cuaca'] = main_df['weathersit_x'].map({

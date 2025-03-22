@@ -91,11 +91,14 @@ with col2:
 # Menampilkan pengaruh musim terhadap penyewaan sepeda
 st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
 if not seasonal_influence.empty:
+    musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
+    seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
+
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x='season_x', y='cnt_x', data=seasonal_influence, palette="Blues", ax=ax)
-    ax.set_title('Pengaruh Musim Terhadap Penyewaan Sepeda')
-    ax.set_xlabel('Musim')
-    ax.set_ylabel('Total Penyewaan Sepeda')
+    sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette="Blues", ax=ax)
+    ax.set_title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
+    ax.set_xlabel('Musim', fontsize=14)
+    ax.set_ylabel('Total Penyewaan Sepeda', fontsize=14)
     st.pyplot(fig)
 else:
     st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")
@@ -105,9 +108,9 @@ st.subheader('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
 if not weather_influence.empty:
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x='weathersit_x', y='cnt_x', data=weather_influence, palette="Oranges", ax=ax)
-    ax.set_title('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
-    ax.set_xlabel('Cuaca')
-    ax.set_ylabel('Total Penyewaan Sepeda')
+    ax.set_title('Pengaruh Cuaca Terhadap Penyewaan Sepeda', fontsize=16)
+    ax.set_xlabel('Cuaca', fontsize=14)
+    ax.set_ylabel('Total Penyewaan Sepeda', fontsize=14)
     st.pyplot(fig)
 else:
     st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")

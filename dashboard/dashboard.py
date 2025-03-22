@@ -16,10 +16,10 @@ if os.path.exists(dashboard):
         # Membaca file CSV
         hour_day_df = pd.read_csv(dashboard)
     except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat membaca file CSV: {e}")
+        st.error(f" Terjadi kesalahan saat membaca file CSV: {e}")
         st.stop()
 else:
-    st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
+    st.error(f" File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
@@ -27,10 +27,10 @@ if 'dteday_x' in hour_day_df.columns:
     try:
         hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
     except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat mengonversi kolom 'dteday_x' menjadi datetime: {e}")
+        st.error(f"Terjadi kesalahan saat mengonversi kolom 'dteday_x' menjadi datetime: {e}")
         st.stop()
 else:
-    st.error("❌ Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
+    st.error("Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
     st.stop()
 
 # Mengurutkan dan mereset index berdasarkan tanggal
@@ -44,7 +44,8 @@ musim_mapping = {
     3: 'Musim Panas',
     4: 'Musim Gugur'
 }
-hour_day_df['Musim'] = hour_day_df['season_x'].map(musim_mapping)
+seasonal_influence['Musim'] = seasonal_influence['Musim'].map(musim_mapping)
+
 
 # Filter rentang tanggal dari sidebar
 min_date = hour_day_df["dteday_x"].min()

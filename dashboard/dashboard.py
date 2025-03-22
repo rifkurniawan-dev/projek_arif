@@ -88,19 +88,18 @@ with col2:
     else:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
+# Menampilkan pengaruh musim terhadap penyewaan sepeda
+st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
 if not seasonal_influence.empty:
-    easonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-seasonal_influence.head(10)
+    seasonal_influence = main_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
     musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
     seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    plt.figure(figsize=(10, 6))
-    sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, hue='Musim', dodge=False, palette="Blues")
-    plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
-    plt.xlabel('Musim', fontsize=14)
-    plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
-    plt.legend([], [], frameon=False)
+    sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette="Blues", ax=ax)
+    ax.set_title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
+    ax.set_xlabel('Musim', fontsize=14)
+    ax.set_ylabel('Total Penyewaan Sepeda', fontsize=14)
     st.pyplot(fig)
 else:
     st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")

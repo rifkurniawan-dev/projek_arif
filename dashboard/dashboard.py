@@ -101,7 +101,7 @@ weather_influence['Cuaca'] = weather_influence['weathersit_x'].map(weather_mappi
 
 hour_df['weathersit'] = hour_df['weathersit'].map(weather_mapping)
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='weathersit', y='cnt', data=hour_df)
+sns.boxplot(x='weathersit', y='cnt', data=weather_influence)
 plt.title('pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
 plt.xlabel('Kondisi Cuaca (weathersit)')
 plt.ylabel('Jumlah Penyewaan Sepeda')

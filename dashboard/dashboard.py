@@ -66,8 +66,8 @@ st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
 col1, col2 = st.columns(2)
 with col1:
     if 'cnt_x' in main_df.columns:
-        total_orders = main_df['cnt_x'].sum()
-        st.metric("Total Penyewa", value=total_orders)
+        total_penyewa = main_df['cnt_x'].sum()
+        st.metric("Total Penyewa", value=total_penyewa)
 with col2:
     if 'cnt_x' in main_df.columns:
         total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
@@ -78,13 +78,13 @@ st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
 # Mapping musim dilakukan di main_df, bukan di seasonal_influence
 seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-main_df = {
+musim_mapping = {
     1: 'Musim Dingin',
     2: 'Musim Semi',
     3: 'Musim Panas',
     4: 'Musim Gugur'
 }
-seasonal_influence['Musim'] = seasonal_influence['season_x'].map(main_df)
+main_df['Musim'] = main_df['season_x'].map(musim_mapping)
 
 plt.figure(figsize=(10, 6))
 sns.barplot(

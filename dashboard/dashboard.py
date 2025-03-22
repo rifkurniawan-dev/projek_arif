@@ -81,7 +81,7 @@ with col1:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
 
 with col2:
-    total_pendapatan = format_currency(daily_seasonal_influence_df['cnt'].sum(), 'USD', locale='en_US')
+    total_pendapatan = format_currency(daily_seasonal_influence_df['dteday_x'].sum(), 'USD', locale='en_US')
             st.metric('Total Pendapatan', value=total_pendapatan)
 # Menampilkan pengaruh musim terhadap penyewaan sepeda
 st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')

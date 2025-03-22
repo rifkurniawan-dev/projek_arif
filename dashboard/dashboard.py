@@ -77,18 +77,24 @@ with col2:
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
 # Mapping musim dilakukan di main_df, bukan di seasonal_influence
-main_df['Musim'] = main_df['season_x'].map({
+seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+musim_mapping = {
     1: 'Musim Dingin',
     2: 'Musim Semi',
     3: 'Musim Panas',
     4: 'Musim Gugur'
-})
-
-# Mengelompokkan data berdasarkan musim dari main_df yang sudah difilter oleh rentang tanggal
-seasonal_influence = main_df.groupby('Musim')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+}
+seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
 
 plt.figure(figsize=(10, 6))
-sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, palette="Blues")
+sns.barplot(
+    x='Musim', 
+    y='cnt_x', 
+    data=seasonal_influence, 
+    hue='Musim',  # Tambahkan hue
+    palette="Blues", 
+    legend=False  # Nonaktifkan legenda
+)
 plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)

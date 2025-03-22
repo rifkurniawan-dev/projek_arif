@@ -98,12 +98,7 @@ st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 # Kelompokkan data berdasarkan musim
 seasonal_influence = hour_day_df.groupby('season_x')[['cnt_x']].sum().sort_values(by='cnt_x', ascending=False).reset_index()
 plt.figure(figsize=(10, 6))
-sns.barplot(
-    x='Musim',
-    y='Total Penyewaan Sepeda',
-    data=seasonal_influence,
-    errorbar=None 
-)
+sns.barplot(x='Musim',y='Total Penyewaan Sepeda', data=seasonal_influence,errorbar=None )
 plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
 plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)

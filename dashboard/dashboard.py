@@ -78,13 +78,13 @@ st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
 # Mapping musim dilakukan di main_df, bukan di seasonal_influence
 seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-musim_mapping = {
+main_df = {
     1: 'Musim Dingin',
     2: 'Musim Semi',
     3: 'Musim Panas',
     4: 'Musim Gugur'
 }
-seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
+seasonal_influence['Musim'] = seasonal_influence['season_x'].map(main_df)
 
 plt.figure(figsize=(10, 6))
 sns.barplot(

@@ -114,7 +114,7 @@ plt.clf()
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
 
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='Cuaca', y='cnt_x', data=main_df, palette="Oranges",hue='weather_description',  dodge=False)
+sns.boxplot(x='Cuaca', y='cnt_x', data=main_df, palette="Oranges")
 plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca', fontsize=16)
 plt.xlabel('Kondisi Cuaca', fontsize=14)
 plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)

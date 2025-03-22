@@ -46,7 +46,6 @@ max_date = hour_day_df["dteday_x"].max()
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)
     
-    
     # Mengambil rentang tanggal dari user
     start_date, end_date = st.date_input(
         label='Rentang Waktu',
@@ -74,9 +73,9 @@ with col2:
         total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
         st.metric('Total Pendapatan', value=total_pendapatan)
 
-# Grafik Pengaruh Musim Terhadap Penyewaan Sepeda
+# Grafik Pengaruh Musim Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
-seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+seasonal_influence = main_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
 musim_mapping = {1: 'Musim Dingin', 2: 'Musim Semi', 3: 'Musim Panas', 4: 'Musim Gugur'}
 seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
 
@@ -88,11 +87,9 @@ plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
 plt.clf()  # Membersihkan plot setelah ditampilkan
 
-# Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda
+# Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
-weather_influence = hour_day_df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-
-hour_day_df['Cuaca'] = hour_day_df['weathersit_x'].map({
+main_df['Cuaca'] = main_df['weathersit_x'].map({
     1: 'Cerah/Sedikit Berawan',
     2: 'Berkabut/Berawan',
     3: 'Hujan Ringan/Snow Ringan',
@@ -100,10 +97,9 @@ hour_day_df['Cuaca'] = hour_day_df['weathersit_x'].map({
 })
 
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='Cuaca', y='cnt_x', data=hour_day_df, palette="Oranges")
+sns.boxplot(x='Cuaca', y='cnt_x', data=main_df, palette="Oranges")
 plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca', fontsize=16)
 plt.xlabel('Kondisi Cuaca', fontsize=14)
 plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
-plt.clf() 
 plt.clf() 

@@ -85,3 +85,52 @@ with col2:
         st.metric('Total Pendapatan', value=total_pendapatan)
     else:
         st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
+   st.sidebar.title('Filter Data')
+    selected_season = st.sidebar.selectbox('Pilih Musim', hour_day_df['season_x'].unique())
+    selected_weather = st.sidebar.selectbox('Pilih Cuaca', hour_day_df['weathersit_x'].unique())
+
+    # Filter data based on selection
+    filtered_data = hour_day_df[
+        (hour_day_df['season_x'] == selected_season) & 
+        (hour_day_df['weathersit_x'] == selected_weather)
+    ]
+
+    # Visualization 1: Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda
+    st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
+    seasonal_influence = hour_day_df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+    musim_mapping = {
+        1: 'Musim Dingin',
+        2: 'Musim Semi',
+        3: 'Musim Panas',
+        4: 'Musim Gugur'
+    }
+    seasonal_influence['Musim'] = seasonal_influence['season_x'].map(musim_mapping)
+
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='Musim', y='cnt_x', data=seasonal_influence, hue='Musim', dodge=False, palette="Blues")
+    plt.title('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
+    plt.xlabel('Musim', fontsize=14)
+    plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
+    plt.legend([], [], frameon=False)
+    st.pyplot(plt)
+
+    # Visualization 2: Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda
+    st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
+    weather_influence = hour_day_df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+    weather_mapping = {
+        1: 'Cerah/Sedikit Berawan',
+        2: 'Berkabut/Berawan',
+        3: 'Hujan Ringan/Snow Ringan',
+        4: 'Hujan Deras/Snow Lebat'
+    }
+    hour_day_df['weathersit_x'] = hour_day_df['weathersit_x'].map(weather_mapping)
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(x='weathersit_x', y='cnt_x', data=hour_day_df)
+    plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
+    plt.xlabel('Kondisi Cuaca (weathersit)')
+    plt.ylabel('Jumlah Penyewaan Sepeda')
+    st.pyplot(plt)
+
+    # Display filtered data
+    st.subheader('Data yang Difilter')
+    st.write(filtered_data)

@@ -10,18 +10,7 @@ sns.set(style='dark')
 # Path file CSV
 dashboard = "dashboard/hour_day.csv"
 
-# Mengecek apakah file CSV ada atau tidak
-if os.path.exists(dashboard):
-    try:
-        # Membaca file CSV
-        hour_day_df = pd.read_csv(dashboard)
-        st.success(f"✅ File '{dashboard}' berhasil dibaca!")
-    except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat membaca file CSV: {e}")
-        st.stop()
-else:
-    st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
-    st.stop()
+
 
 # Konversi kolom tanggal ke tipe datetime
 if 'dteday_x' in hour_day_df.columns:

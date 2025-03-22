@@ -2,46 +2,52 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import streamlit as st
+import streamlit as st  # Menggunakan alias 'st'
 import os
+from babel.numbers import format_currency  # ✅ Mengimpor format_currency
 
 sns.set(style='darkgrid')
 
 # Load data
-hour_day_df = pd.read_csv("dashboard/hour_day.csv")
-
-# Cek nama kolom yang ada
-st.write("Nama Kolom Tersedia:", hour_day_df.columns.tolist())
-
-# Cek apakah kolom 'dteday_x' atau 'dteday_y' yang ada
-if 'dteday_x' in hour_day_df.columns:
-    date_column = 'dteday_x'
-elif 'dteday_y' in hour_day_df.columns:
-    date_column = 'dteday_y'
+dashboard = "dashboard/hour_day.csv"
+if os.path.exists(dashboard):
+    hour_day_df = pd.read_csv(dashboard)
 else:
-    st.error("Kolom 'dteday' tidak ditemukan. Cek kembali file CSV kamu.")
+    st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
-hour_day_df[date_column] = pd.to_datetime(hour_day_df[date_column])
+if 'dteday_x' in hour_day_df.columns:
+    hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+else:
+    st.error("❌ Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
+    st.stop()
 
 # Mengurutkan dan mereset index berdasarkan tanggal
-hour_day_df.sort_values(by=date_column, inplace=True)
+hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
 # Fungsi untuk membuat seasonal influence
 def create_seasonal_influence(df):
-    seasonal_influence = df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-    return seasonal_influence
+    if 'season_x' in df.columns and 'cnt_x' in df.columns:
+        seasonal_influence = df.groupby('season_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+        return seasonal_influence
+    else:
+        st.warning("Kolom 'season_x' atau 'cnt_x' tidak ditemukan dalam DataFrame.")
+        return pd.DataFrame()
 
 # Fungsi untuk membuat weather influence
 def create_weather_influence(df):
-    weather_influence = df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
-    return weather_influence
+    if 'weathersit_x' in df.columns and 'cnt_x' in df.columns:
+        weather_influence = df.groupby('weathersit_x')['cnt_x'].sum().sort_values(ascending=False).reset_index()
+        return weather_influence
+    else:
+        st.warning("Kolom 'weathersit_x' atau 'cnt_x' tidak ditemukan dalam DataFrame.")
+        return pd.DataFrame()
 
 # Filter rentang tanggal dari sidebar
-min_date = hour_day_df[date_column].min()
-max_date = hour_day_df[date_column].max()
+min_date = hour_day_df["dteday_x"].min()
+max_date = hour_day_df["dteday_x"].max()
 
 with st.sidebar:
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png", width=150)
@@ -55,17 +61,53 @@ with st.sidebar:
     )
 
 # Filter data sesuai dengan rentang tanggal yang dipilih
-main_df = hour_day_df[(hour_day_df[date_column] >= pd.to_datetime(start_date)) & 
-                      (hour_day_df[date_column] <= pd.to_datetime(end_date))]
+main_df = hour_day_df[(hour_day_df["dteday_x"] >= pd.to_datetime(start_date)) & 
+                      (hour_day_df["dteday_x"] <= pd.to_datetime(end_date))]
 
 # Menyiapkan data visualisasi
 seasonal_influence = create_seasonal_influence(main_df)
 weather_influence = create_weather_influence(main_df)
 
-# Menampilkan hasil
-st.title("Analisis Penyewaan Sepeda")
-st.subheader("Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda")
-st.dataframe(seasonal_influence)
+st.header('Dashboard Analisis Penyewaan Sepeda 🚲✨')
+st.subheader('Pengaruh Musim terhadap Penyewaan Sepeda')
 
-st.subheader("Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda")
-st.dataframe(weather_influence)
+# Membuat dua kolom
+col1, col2 = st.columns(2)
+
+with col1:
+    if 'cnt_x' in main_df.columns:
+        total_orders = main_df['cnt_x'].sum() 
+        st.metric("Total Orders", value=total_orders)
+    else:
+        st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
+
+with col2:
+    if 'cnt_x' in main_df.columns:
+        total_pendapatan = format_currency(main_df['cnt_x'].sum(), 'USD', locale='en_US')
+        st.metric('Total Pendapatan', value=total_pendapatan)
+    else:
+        st.error("Kolom 'cnt_x' tidak ditemukan dalam main_df.")
+
+# Menampilkan pengaruh musim terhadap penyewaan sepeda
+st.subheader('Pengaruh Musim Terhadap Penyewaan Sepeda')
+if not seasonal_influence.empty:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='season_x', y='cnt_x', data=seasonal_influence, palette="Blues", ax=ax)
+    ax.set_title('Pengaruh Musim Terhadap Penyewaan Sepeda')
+    ax.set_xlabel('Musim')
+    ax.set_ylabel('Total Penyewaan Sepeda')
+    st.pyplot(fig)
+else:
+    st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")
+
+# Menampilkan pengaruh cuaca terhadap penyewaan sepeda
+st.subheader('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
+if not weather_influence.empty:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='weathersit_x', y='cnt_x', data=weather_influence, palette="Oranges", ax=ax)
+    ax.set_title('Pengaruh Cuaca Terhadap Penyewaan Sepeda')
+    ax.set_xlabel('Cuaca')
+    ax.set_ylabel('Total Penyewaan Sepeda')
+    st.pyplot(fig)
+else:
+    st.warning("Tidak ada data yang ditemukan untuk ditampilkan.")

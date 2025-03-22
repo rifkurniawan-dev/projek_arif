@@ -1,5 +1,4 @@
 #Link Streamlit
 https://projekarif-5uk6z6rhcanhbn9xn8fdsj.streamlit.app/
-
 #Link Projek Github
 https://github.com/rifkurniawan-dev/projek_arif

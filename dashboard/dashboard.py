@@ -99,11 +99,11 @@ weather_mapping = {
 }
 weather_influence['Cuaca'] = weather_influence['weathersit_x'].map(weather_mapping)
 
+hour_df['weathersit'] = hour_df['weathersit'].map(weather_mapping)
 plt.figure(figsize=(12, 6))
-sns.barplot(x='Cuaca', y='cnt_x', data=weather_influence, palette="Oranges")
-plt.title('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda', fontsize=16)
-plt.xlabel('Cuaca', fontsize=14)
-plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
+sns.boxplot(x='weathersit', y='cnt', data=hour_df)
+plt.title('pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca')
+plt.xlabel('Kondisi Cuaca (weathersit)')
+plt.ylabel('Jumlah Penyewaan Sepeda')
 st.pyplot(plt)
-plt.clf()  # Membersihkan plot setelah ditampilkan
-
+plt.clf() 

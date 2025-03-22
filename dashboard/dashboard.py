@@ -9,7 +9,7 @@ from babel.numbers import format_currency
 sns.set(style='darkgrid')
 
 # Load data
-dashboard = "hour_day.csv"
+dashboard = "dashboard/hour_day.csv"
 if os.path.exists(dashboard):
     hour_day_df = pd.read_csv(dashboard)
 else:

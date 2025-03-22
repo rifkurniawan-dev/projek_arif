@@ -1,38 +1,26 @@
 # -*- coding: utf-8 -*-
-import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 from babel.numbers import format_currency
+import warnings
+
+# Mengabaikan peringatan agar tampilan lebih bersih
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 sns.set(style='dark')
 
-# Path file CSV
-dashboard = "dashboard/hour_day.csv"
-
-# Mengecek apakah file CSV ada atau tidak
-if os.path.exists(dashboard):
-    try:
-        # Membaca file CSV
-        hour_day_df = pd.read_csv(dashboard)
-        st.success(f"✅ File '{dashboard}' berhasil dibaca!")
-    except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat membaca file CSV: {e}")
-        st.stop()
-else:
-    st.error(f"❌ File '{dashboard}' tidak ditemukan. Pastikan file ada di folder 'dashboard'.")
+# Asumsikan `hour_day_df` sudah ada di memori
+if 'hour_day_df' not in locals():
+    st.error("❌ DataFrame 'hour_day_df' tidak ditemukan. Pastikan sudah dimuat sebelumnya.")
     st.stop()
 
 # Konversi kolom tanggal ke tipe datetime
-if 'dteday_x' in hour_day_df.columns:
-    try:
-        hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
-    except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat mengonversi kolom 'dteday_x' menjadi datetime: {e}")
-        st.stop()
-else:
-    st.error("❌ Kolom 'dteday_x' tidak ditemukan di dalam file CSV.")
+try:
+    hour_day_df["dteday_x"] = pd.to_datetime(hour_day_df["dteday_x"])
+except Exception as e:
+    st.error(f"❌ Terjadi kesalahan saat mengonversi kolom 'dteday_x' menjadi datetime: {e}")
     st.stop()
 
 # Mengurutkan dan mereset index berdasarkan tanggal
@@ -76,10 +64,6 @@ with col2:
 # Grafik Pengaruh Musim Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
 
-# Mapping musim dilakukan di main_df, bukan di seasonal_influence
-st.subheader('Pengaruh Musim Terhadap Jumlah Penyewaan Sepeda')
-
-# Mapping musim dilakukan di main_df, bukan di seasonal_influence
 main_df['Musim'] = main_df['season_x'].map({
     1: 'Musim Dingin',
     2: 'Musim Semi',
@@ -97,8 +81,10 @@ plt.xlabel('Musim', fontsize=14)
 plt.ylabel('Total Penyewaan Sepeda', fontsize=14)
 st.pyplot(plt)
 plt.clf() 
+
 # Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda (Data Terintegrasi dengan Rentang Tanggal)
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
+
 main_df['Cuaca'] = main_df['weathersit_x'].map({
     1: 'Cerah/Sedikit Berawan',
     2: 'Berkabut/Berawan',
@@ -107,7 +93,7 @@ main_df['Cuaca'] = main_df['weathersit_x'].map({
 })
 
 plt.figure(figsize=(12, 6))
-sns.boxplot(x='Cuaca', y='cnt_x', data=main_df, palette="Oranges")
+sns.boxplot(x='Cuaca', y='cnt_x', data=main_df)
 plt.title('Pengaruh Penyewaan Sepeda Berdasarkan Kondisi Cuaca', fontsize=16)
 plt.xlabel('Kondisi Cuaca', fontsize=14)
 plt.ylabel('Jumlah Penyewaan Sepeda', fontsize=14)

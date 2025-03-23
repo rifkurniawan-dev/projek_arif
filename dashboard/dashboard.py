@@ -6,8 +6,8 @@ from babel.numbers import format_currency
 
 
 sns.set(style='dark')
-def create_seasonal_influence(df) :
-seasonal_influence = hour_day_df.groupby(by="season_x")["cnt_x"].sum().reset_index()
+def create_seasonal_influence(df):
+    seasonal_influence = df.groupby("season_x")["cnt_x"].sum().reset_index()
 seasonal_influence.rename(columns={
     "cnt_x": "Total Penyewaan Sepeda",
     "season_x": "Musim"
@@ -34,13 +34,12 @@ hour_day_df['weathersit_description'] = hour_day_df['weathersit_x'].map(weather_
      
 return weather_influence
 dashboard = pd.read_csv("dashboard/dashboard.csv")
-datetime_columns = ["dteday"]
+hour_day_df['dteday_x'] = pd.to_datetime(hour_day_df['dteday_x'])
+
 hour_day_df.sort_values(by="dteday_x", inplace=True)
 hour_day_df.reset_index(drop=True, inplace=True)
 
-for coloumn in datetime_columns:
-  dashboard[coloumn] = pd.to_datetime(dashboard[coloumn])
-    
+
 min_date = hour_day_df["dteday_x"].min()
 max_date = hour_day_df["dteday_x"].max()
 

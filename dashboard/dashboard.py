@@ -43,6 +43,7 @@ def create_weather_influence(df):
 # Load data
 hour_day_df = pd.read_csv("dashboard/dashboard.csv")
 
+
 # Mengonversi kolom tanggal menjadi tipe datetime
 hour_day_df['dteday_x'] = pd.to_datetime(hour_day_df['dteday_x'])
 

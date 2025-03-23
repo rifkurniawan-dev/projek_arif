@@ -114,6 +114,19 @@ st.pyplot(fig)
 
 # Grafik Pengaruh Cuaca Terhadap Penyewaan Sepeda
 st.subheader('Pengaruh Cuaca Terhadap Jumlah Penyewaan Sepeda')
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    avg_temp = round(main_df['temp_x'].mean(), 2)
+    st.metric("Rata-rata Suhu (°C)", value=f"{avg_temp} °C")
+
+with col2:
+    avg_atemp = round(main_df['atemp_x'].mean(), 2)
+    st.metric("Rata-rata Suhu Terasa (°C)", value=f"{avg_atemp} °C")
+
+with col3:
+    avg_cnt = round(main_df['cnt_x'].mean(), 0)
+    st.metric("Rata-rata Penyewaan Sepeda", value=int(avg_cnt))
 fig, ax = plt.subplots(figsize=(12, 6))
 
 sns.boxplot(
